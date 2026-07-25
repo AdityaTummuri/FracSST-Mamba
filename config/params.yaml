@@ -1,0 +1,16 @@
+dsp:
+  sampling_rate: 1000
+  n_fft: 256
+  hop_length: 64
+  fractional_order_alpha: 0.5
+
+model:
+  d_model: 128
+  n_layers: 4
+  dropout: 0.1
+  num_classes: 3
+
+training:
+  batch_size: 32
+  lr: 0.001
+  epochs: 50

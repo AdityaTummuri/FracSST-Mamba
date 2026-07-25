@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software or algorithm in your research, please cite our paper."
+authors:
+  - family-names: "Aditya"
+    given-names: "T."
+  - family-names: "Krishna"
+    given-names: "Y."
+  - family-names: "Varshitha"
+    given-names: "G."
+title: "FracSST-Mamba: Physics-Aware Radar Human Activity Recognition"
+version: 1.0.0
+date-released: 2026-07-24
