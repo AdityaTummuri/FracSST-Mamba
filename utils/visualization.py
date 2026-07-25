@@ -21,14 +21,31 @@ def plot_spectrogram(
     """Plot radar micro-Doppler time-frequency spectrogram.
 
     Args:
-        data: 2D array of spectrogram magnitudes.
+        data: 2D array of spectrogram magnitudes of shape (n_freq, n_time).
         title: Plot title text.
         xlabel: Label for horizontal time axis.
         ylabel: Label for vertical frequency axis.
         cmap: Matplotlib colormap string.
         save_path: Optional path to save image file.
     """
-    raise NotImplementedError("plot_spectrogram visualization to be implemented.")
+    plt.figure(figsize=(10, 5))
+    # DB scale magnitude for better contrast if values are non-zero
+    data_plot = np.abs(data)
+    if np.max(data_plot) > 0:
+        data_plot = 10 * np.log10(data_plot + 1e-12)
+
+    plt.imshow(data_plot, aspect="auto", origin="lower", cmap=cmap)
+    plt.title(title, fontsize=14, fontweight="bold")
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.colorbar(label="Power (dB)" if np.max(data_plot) > 0 else "Magnitude")
+    plt.tight_layout()
+
+    if save_path:
+        plt.savefig(save_path, dpi=300)
+        plt.close()
+    else:
+        plt.show()
 
 
 def plot_confusion_matrix(
@@ -41,10 +58,29 @@ def plot_confusion_matrix(
     """Plot classification confusion matrix heatmap.
 
     Args:
-        cm: Confusion matrix 2D array.
+        cm: Confusion matrix 2D array of shape (n_classes, n_classes).
         class_names: List of class category names.
         title: Title of heatmap plot.
         cmap: Seaborn colormap string.
         save_path: Optional output image file path.
     """
-    raise NotImplementedError("plot_confusion_matrix visualization to be implemented.")
+    plt.figure(figsize=(7, 6))
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d" if np.issubdtype(cm.dtype, np.integer) else ".2f",
+        cmap=cmap,
+        xticklabels=class_names,
+        yticklabels=class_names,
+        cbar=True,
+    )
+    plt.title(title, fontsize=14, fontweight="bold")
+    plt.xlabel("Predicted Label", fontsize=12)
+    plt.ylabel("True Label", fontsize=12)
+    plt.tight_layout()
+
+    if save_path:
+        plt.savefig(save_path, dpi=300)
+        plt.close()
+    else:
+        plt.show()
