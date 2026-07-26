@@ -6,6 +6,7 @@ matplotlib
 seaborn
 pandas
 pyyaml
+streamlit>=1.30.0
 mamba-ssm
 causal-conv1d
 ptflops

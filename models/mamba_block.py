@@ -10,11 +10,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 try:
-    from mamba_ssm import Mamba as NativeMamba
+    from mamba_ssm import Mamba as NativeMamba  # type: ignore # pyright: ignore[reportMissingImports]
 
     HAS_NATIVE_MAMBA = True
 except ImportError:
     HAS_NATIVE_MAMBA = False
+
 
 
 class PyTorchSelectiveSSM(nn.Module):
