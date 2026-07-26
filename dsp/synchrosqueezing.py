@@ -55,19 +55,16 @@ def fracsst_1d(
 
     pad_len = n_fft // 2
     f_pad = np.pad(rotated_signal, (pad_len, pad_len), mode="constant")
-    n_frames = 1 + (N + 2 * pad_len - n_fft) // hop_length
+    frames = np.lib.stride_tricks.sliding_window_view(f_pad, n_fft)[::hop_length]
+    Zxx = np.fft.fftshift(np.fft.fft(frames * w, axis=1), axes=1).T
 
+
+    Zxx_dw = np.fft.fftshift(np.fft.fft(frames * dw, axis=1), axes=1).T
     freq_bins = np.fft.fftshift(np.fft.fftfreq(n_fft, d=1.0 / fs))
-    Zxx = np.zeros((n_fft, n_frames), dtype=complex)
-    Zxx_dw = np.zeros((n_fft, n_frames), dtype=complex)
-
-    for j in range(n_frames):
-        start = j * hop_length
-        segment = f_pad[start : start + n_fft]
-        Zxx[:, j] = np.fft.fftshift(np.fft.fft(segment * w))
-        Zxx_dw[:, j] = np.fft.fftshift(np.fft.fft(segment * dw))
-
     n_freq_bins, n_frames = Zxx.shape
+
+
+
 
     # 4. Calculate Instantaneous Frequencies
     # omega = Im(STFT_derivative / STFT_standard) / (2 * pi)

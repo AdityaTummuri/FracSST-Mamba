@@ -88,7 +88,15 @@ def frft(f: np.ndarray, a: float) -> np.ndarray:
 
     # Down-sample back to length N
     res = g_out[::2][:N]
+    
+    norm_f = np.linalg.norm(f)
+    if norm_f > 0:
+        norm_res = np.linalg.norm(res)
+        if norm_res > 0:
+            res = res * (norm_f / norm_res)
+            
     return res
+
 
 
 def find_optimal_alpha(f: np.ndarray, search_range: np.ndarray) -> float:
@@ -120,11 +128,8 @@ def find_optimal_alpha(f: np.ndarray, search_range: np.ndarray) -> float:
         f_rot = frft(f, alpha)
         f_pad = np.pad(f_rot, (pad_len, pad_len), mode="constant")
 
-        spec_mag = np.zeros((n_fft, n_frames), dtype=float)
-        for j in range(n_frames):
-            start = j * hop_length
-            segment = f_pad[start : start + n_fft]
-            spec_mag[:, j] = np.abs(np.fft.fft(segment * w)) ** 2
+        frames = np.lib.stride_tricks.sliding_window_view(f_pad, n_fft)[::hop_length]
+        spec_mag = np.abs(np.fft.fft(frames * w, axis=1)) ** 2
 
         total_energy = np.sum(spec_mag)
         if total_energy < 1e-12:
@@ -140,5 +145,6 @@ def find_optimal_alpha(f: np.ndarray, search_range: np.ndarray) -> float:
             best_alpha = float(alpha)
 
     return best_alpha
+
 
 
