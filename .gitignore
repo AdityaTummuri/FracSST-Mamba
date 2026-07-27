@@ -29,6 +29,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+datasets/*
+!datasets/.gitkeep
 
 # Model checkpoints and weights
 *.pt
