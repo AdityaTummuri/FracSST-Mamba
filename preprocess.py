@@ -11,6 +11,7 @@ from typing import Tuple
 import numpy as np
 import torch
 from dsp.synchrosqueezing import fracsst_1d
+from data.synthetic_fixtures import create_synthetic_chirp_signal
 
 
 # Activity Classes: 0: Walk, 1: Sit, 2: Fall

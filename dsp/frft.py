@@ -1,10 +1,10 @@
-"""Fractional Fourier Transform (FrFT) implementations.
+"""Fractional Fourier Transform (FrFT) implementation and parameter search.
 
-Provides tools for computing fast Fractional Fourier Transforms of 1D signals
+Provides functions for computing fast Fractional Fourier Transforms of 1D signals
 specifically tailored for radar micro-Doppler spectral analysis and optimal alpha parameter selection.
 """
 
-from typing import Union
+from typing import Union, Optional
 import numpy as np
 import scipy.signal
 
@@ -17,18 +17,25 @@ def frft(f: np.ndarray, a: float) -> np.ndarray:
 
     Args:
         f: Input 1D complex or real signal array of shape (N,).
-        a: Fractional order parameter (can be any real number).
+        a: Fractional order parameter (any real number).
 
     Returns:
-        Transformed 1D complex signal array of shape (N,).
+        Transformed 1D complex signal array of shape (N,) with preserved L2 energy norm.
+
+    Raises:
+        ValueError: If f is not a 1D array.
     """
-    f = np.asarray(f, dtype=complex)
+    f_arr = np.asarray(f)
+    if f_arr.ndim != 1:
+        raise ValueError(f"frft expects a 1D array, but got shape {f_arr.shape}")
+
+    f = np.asarray(f_arr, dtype=complex)
     N = len(f)
     if N == 0:
         return f.copy()
 
     # Reduce order to interval [-2.0, 2.0)
-    a_mod = a % 4.0
+    a_mod = float(a) % 4.0
     if a_mod >= 2.0:
         a_mod -= 4.0
 
@@ -88,44 +95,68 @@ def frft(f: np.ndarray, a: float) -> np.ndarray:
 
     # Down-sample back to length N
     res = g_out[::2][:N]
-    
+
     norm_f = np.linalg.norm(f)
     if norm_f > 0:
         norm_res = np.linalg.norm(res)
         if norm_res > 0:
             res = res * (norm_f / norm_res)
-            
+
     return res
 
 
-
-def find_optimal_alpha(f: np.ndarray, search_range: np.ndarray) -> float:
-    """Find the optimal fractional order alpha minimizing Rényi Entropy (alpha_R=3).
+def find_optimal_alpha(
+    f: np.ndarray,
+    search_range: Optional[np.ndarray] = None,
+    n_fft: Optional[int] = None,
+    hop_length: Optional[int] = None,
+) -> float:
+    """Find the optimal fractional order alpha minimizing Rényi Entropy (order=3).
 
     A lower Rényi entropy corresponds to higher time-frequency energy concentration
     (minimal spectral smearing).
 
     Args:
-        f: Input 1D signal array.
+        f: Input 1D signal array of shape (N,).
         search_range: Array of candidate fractional orders alpha to evaluate.
+                      Defaults to np.linspace(0.0, 1.5, 31).
+        n_fft: Optional FFT window size for time-frequency entropy estimation.
+               Defaults to min(256, len(f)).
+        hop_length: Optional hop size between frames for entropy estimation.
+                    Defaults to max(1, n_fft // 4).
 
     Returns:
         Optimal fractional order alpha that yields the minimal Rényi entropy.
+
+    Raises:
+        ValueError: If f is empty or not a 1D array.
     """
-    best_alpha = search_range[0]
+    f_arr = np.asarray(f)
+    if f_arr.ndim != 1:
+        raise ValueError(f"find_optimal_alpha expects a 1D array, got shape {f_arr.shape}")
+    N = len(f_arr)
+    if N == 0:
+        raise ValueError("Cannot find optimal alpha for an empty signal.")
+
+    if search_range is None:
+        search_range = np.linspace(0.0, 1.5, 31)
+
+    if n_fft is None:
+        n_fft = min(256, N)
+    else:
+        n_fft = min(n_fft, N)
+
+    if hop_length is None:
+        hop_length = max(1, n_fft // 4)
+
+    best_alpha = float(search_range[0])
     min_entropy = float("inf")
 
-    N = len(f)
-    n_fft = min(256, N)
-    hop_length = max(1, n_fft // 4)
     w = scipy.signal.windows.hamming(n_fft)
-
-    # Pad signal for STFT
     pad_len = n_fft // 2
-    n_frames = 1 + (N + 2 * pad_len - n_fft) // hop_length
 
     for alpha in search_range:
-        f_rot = frft(f, alpha)
+        f_rot = frft(f_arr, float(alpha))
         f_pad = np.pad(f_rot, (pad_len, pad_len), mode="constant")
 
         frames = np.lib.stride_tricks.sliding_window_view(f_pad, n_fft)[::hop_length]
@@ -145,6 +176,3 @@ def find_optimal_alpha(f: np.ndarray, search_range: np.ndarray) -> float:
             best_alpha = float(alpha)
 
     return best_alpha
-
-
-

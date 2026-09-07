@@ -72,18 +72,24 @@ FracSST-Mamba/
 ├── config/
 │   └── params.yaml            # Global hyperparameter configuration
 ├── data/
-│   ├── raw/                   # Raw 1D radar signals (.npy)
+│   ├── raw/                   # Raw radar signals (.npy, .mat, etc.)
+│   ├── interim/               # Intermediate converted/filtered signals
 │   ├── processed/             # FracSST preprocessed tensors (.pt)
+│   ├── metadata/              # Dataset annotations, subject splits, manifests
 │   ├── __init__.py
+│   ├── schema.py              # Standard RadarSample dataclass & BaseRadarDatasetAdapter
+│   ├── synthetic_fixtures.py  # Isolated synthetic signals for testing & verification
 │   └── dataset.py             # PyTorch Dataset & DataLoader factory
 ├── dsp/
 │   ├── __init__.py
 │   ├── frft.py                # 1D Fractional Fourier Transform & Rényi Entropy search
-│   └── synchrosqueezing.py    # 1D Fractional Synchrosqueezing Transform (FracSST)
+│   └── synchrosqueezing.py    # sst_1d, fracsst_1d, and high-level frsst(signal, ...) API
 ├── models/
 │   ├── __init__.py
 │   ├── mamba_block.py         # Mamba SSM block (Native CUDA + PyTorch CPU fallback)
 │   └── da_seg.py              # Dual-Attention Activity Segmentation Model
+├── scripts/
+│   └── run_dsp_demo.py        # Standalone DSP verification & visualization (Zero PyTorch/Mamba dependency)
 ├── utils/
 │   ├── __init__.py
 │   ├── metrics.py             # Accuracy, Precision, Recall, F1, mIoU calculators
@@ -93,10 +99,32 @@ FracSST-Mamba/
 ├── app.py                     # Streamlit live demo dashboard
 ├── preprocess.py              # Offline DSP preprocessing script
 ├── train.py                   # Main training & validation loop
-├── test_dsp.py                # Stage 1 DSP verification tests
+├── test_dsp.py                # Stage 1 DSP unit test suite (unittests, zero ML dependency)
 ├── test_models.py             # Stage 2 neural network verification tests
 └── requirements.txt
 ```
+
+---
+
+## Architecture Layers
+
+The repository is organized into cleanly separated layers:
+
+1. **DATA LAYER** (`data/`):
+   - `data/schema.py`: Defines the uniform internal `RadarSample` representation (complex I/Q signal, sampling rate, activity label, subject ID, recording ID, metadata) and `BaseRadarDatasetAdapter`.
+   - Dataset adapters convert raw benchmark data (DIAT, CI4R, UoG) into `RadarSample` objects without altering DSP code.
+   - `data/synthetic_fixtures.py`: Synthetic chirps isolated exclusively for unit tests and smoke tests.
+2. **SIGNAL PROCESSING / DSP LAYER** (`dsp/`):
+   - Standalone DSP pipeline with zero PyTorch/Mamba dependencies.
+   - Functions: `frft()`, `find_optimal_alpha()`, `sst_1d()`, `fracsst_1d()`, and the high-level `frsst(signal, sampling_rate=...) -> FrSSTResult`.
+3. **FEATURE REPRESENTATION LAYER**:
+   - `FrSSTResult`: Encapsulates the sharpened time-frequency matrix `(n_freq_bins, n_frames)` alongside coordinate frequency and time axes.
+4. **MODEL LAYER** (`models/`):
+   - `DASegModel` and `MambaBlock`: Decoupled sequence models expecting generic tensor representations.
+5. **TRAINING & EVALUATION LAYER** (`train.py`, `utils/`):
+   - Multi-task optimization, validation, and metrics.
+6. **STANDALONE SCRIPTS & DEMO** (`scripts/run_dsp_demo.py`, `app.py`):
+   - `run_dsp_demo.py`: Pure DSP demonstration runnable on CPU without ML packages.
 
 ---
 
@@ -111,7 +139,7 @@ python3 -m venv .venv
 source .venv/bin/activate    # Linux / macOS
 # .venv\Scripts\activate     # Windows
 
-# Install dependencies
+# Install dependencies (DSP core + optional deep learning)
 pip install -r requirements.txt
 ```
 
@@ -121,13 +149,25 @@ pip install -r requirements.txt
 
 ## Usage
 
-### 1. Preprocess Raw Radar Data
+### 1. Run Standalone DSP Demo (Zero PyTorch/Mamba dependency)
+```bash
+python scripts/run_dsp_demo.py
+```
+Processes a radar chirp signal, executes FrFT, SST, and FrSST, prints mathematical metadata, and renders a side-by-side time-frequency comparison figure.
+
+### 2. Run DSP Unit Tests
+```bash
+python -m unittest test_dsp.py
+```
+Tests FrFT boundary conditions, Parseval energy norm preservation, SST energy reassignment, and FrSST API contracts.
+
+### 3. Preprocess Radar Data
 ```bash
 python preprocess.py
 ```
-If `data/raw/` is empty, this auto-generates synthetic Walk, Sit, and Fall radar signals for development/testing.
+Scans `data/raw/` for radar files, applies the FrSST DSP pipeline, and writes `.pt` feature tensors into `data/processed/`.
 
-### 2. Train the Model
+### 4. Train the Model
 ```bash
 # Full training run (reads config/params.yaml)
 python train.py
@@ -139,18 +179,14 @@ python train.py --epochs 100 --batch-size 16
 python train.py --dry-run
 ```
 
-### 3. Launch Live Demo Dashboard
+### 5. Launch Live Demo Dashboard
 ```bash
 streamlit run app.py
 ```
 Open [http://localhost:8501](http://localhost:8501) → Click **"🛰️ Simulate Live Radar Feed"** to watch the pipeline process samples in real-time.
 
-### 4. Verify Pipeline Components
+### 6. Verify Neural Network Architecture
 ```bash
-# Test Stage 1 DSP math pipeline
-python test_dsp.py
-
-# Test Stage 2 neural network architecture
 python test_models.py
 ```
 
