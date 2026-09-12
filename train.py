@@ -1,11 +1,12 @@
 """Main training script for FracSST-Mamba radar HAR framework.
 
-Loads dataset and hyperparameters, constructs DSP pipeline and FracSST-Mamba network,
-runs training & validation loop, computes metrics, and saves best model checkpoints.
+Loads dataset and hyperparameters, constructs MambaClassifier sequence network,
+runs training & validation loop, computes metrics, and saves model checkpoints.
 """
 
 import argparse
 from pathlib import Path
+import tempfile
 from typing import Dict, Tuple
 import yaml
 import torch
@@ -13,13 +14,9 @@ import torch.nn as nn
 from torch.optim import AdamW
 
 from data.dataset import create_dataloaders
-from dsp.synchrosqueezing import fracsst_1d
-from models.da_seg import DASegModel
-from preprocess import preprocess_all
+from models.mamba_block import MambaClassifier
 from utils.checkpoint import save_checkpoint, load_checkpoint
-from utils.metrics import compute_classification_metrics, compute_segmentation_metrics
-
-
+from utils.metrics import compute_classification_metrics, compute_confusion_matrix
 
 
 def load_config(config_path: str) -> dict:
@@ -35,118 +32,200 @@ def load_config(config_path: str) -> dict:
         return yaml.safe_load(f)
 
 
+def _format_batch_inputs(
+    specs: torch.Tensor, model_in_features: int
+) -> torch.Tensor:
+    """Ensure input tensor satisfies the (B, T, F) shape contract.
+
+    Args:
+        specs: Input tensor of shape (B, T, F) or (B, 1, F, T) or (B, F, T).
+        model_in_features: Expected feature dimension F.
+
+    Returns:
+        Tensor reshaped to (B, T, F).
+    """
+    # 4D case: (B, 1, F, T) -> (B, T, F)
+    if specs.ndim == 4 and specs.shape[1] == 1:
+        specs = specs.squeeze(1).transpose(1, 2)
+    # 3D case where frequency is dim 1: (B, F, T) -> (B, T, F)
+    elif (
+        specs.ndim == 3
+        and specs.shape[1] == model_in_features
+        and specs.shape[2] != model_in_features
+    ):
+        specs = specs.transpose(1, 2)
+    return specs
+
+
 def train_one_epoch(
     model: nn.Module,
     train_loader: torch.utils.data.DataLoader,
     optimizer: torch.optim.Optimizer,
-    criterion_cls: nn.Module,
-    criterion_seg: nn.Module,
-    num_classes: int,
+    criterion: nn.Module,
     device: torch.device,
-) -> Tuple[float, float, float]:
+) -> float:
     """Execute training epoch over all dataset batches.
 
+    Args:
+        model: MambaClassifier model instance.
+        train_loader: DataLoader yielding batches of (B, T, F) and (B,).
+        optimizer: PyTorch optimizer instance.
+        criterion: CrossEntropyLoss criterion.
+        device: Target compute device.
+
     Returns:
-        Tuple containing (total_loss, class_loss, seg_loss).
+        Average training loss across all batches.
     """
     model.train()
     running_loss = 0.0
-    running_cls_loss = 0.0
-    running_seg_loss = 0.0
     total_batches = 0
+    in_features = getattr(model, "in_features", 256)
 
-    for specs, labels, seg_masks in train_loader:
-        specs = specs.to(device)
+    for batch in train_loader:
+        specs, labels = batch[0], batch[1]
+        specs = _format_batch_inputs(specs, in_features).to(device)
         labels = labels.to(device)
-        seg_masks = seg_masks.to(device)
 
         optimizer.zero_grad()
-
-        cls_logits, seg_logits = model(specs, return_segmentation=True)
-
-        loss_cls = criterion_cls(cls_logits, labels)
-        loss_seg = criterion_seg(
-            seg_logits.view(-1, num_classes), seg_masks.view(-1)
-        )
-        loss = loss_cls + loss_seg
-
+        logits = model(specs)
+        loss = criterion(logits, labels)
         loss.backward()
         optimizer.step()
 
         running_loss += loss.item()
-        running_cls_loss += loss_cls.item()
-        running_seg_loss += loss_seg.item()
         total_batches += 1
 
-    avg_loss = running_loss / max(1, total_batches)
-    avg_cls_loss = running_cls_loss / max(1, total_batches)
-    avg_seg_loss = running_seg_loss / max(1, total_batches)
-
-    return avg_loss, avg_cls_loss, avg_seg_loss
+    return running_loss / max(1, total_batches)
 
 
 def validate(
     model: nn.Module,
     val_loader: torch.utils.data.DataLoader,
-    criterion_cls: nn.Module,
-    criterion_seg: nn.Module,
-    num_classes: int,
+    criterion: nn.Module,
     device: torch.device,
-) -> Tuple[float, Dict[str, float], Dict[str, float]]:
+) -> Tuple[float, Dict[str, float]]:
     """Execute validation evaluation over validation dataset.
 
+    Args:
+        model: MambaClassifier model instance.
+        val_loader: DataLoader yielding validation batches.
+        criterion: CrossEntropyLoss criterion.
+        device: Target compute device.
+
     Returns:
-        Tuple containing (val_loss, classification_metrics_dict, segmentation_metrics_dict).
+        Tuple containing (val_loss, classification_metrics_dict).
     """
     model.eval()
     running_loss = 0.0
     total_batches = 0
+    in_features = getattr(model, "in_features", 256)
 
     all_cls_true = []
     all_cls_pred = []
-    all_seg_true = []
-    all_seg_pred = []
 
     with torch.no_grad():
-        for specs, labels, seg_masks in val_loader:
-            specs = specs.to(device)
+        for batch in val_loader:
+            specs, labels = batch[0], batch[1]
+            specs = _format_batch_inputs(specs, in_features).to(device)
             labels = labels.to(device)
-            seg_masks = seg_masks.to(device)
 
-            cls_logits, seg_logits = model(specs, return_segmentation=True)
-
-            loss_cls = criterion_cls(cls_logits, labels)
-            loss_seg = criterion_seg(
-                seg_logits.view(-1, num_classes), seg_masks.view(-1)
-            )
-            loss = loss_cls + loss_seg
+            logits = model(specs)
+            loss = criterion(logits, labels)
 
             running_loss += loss.item()
             total_batches += 1
 
             all_cls_true.append(labels.cpu())
-            all_cls_pred.append(cls_logits.cpu())
-            all_seg_true.append(seg_masks.cpu())
-            all_seg_pred.append(seg_logits.cpu())
+            all_cls_pred.append(logits.cpu())
 
     val_loss = running_loss / max(1, total_batches)
-
-    # Concatenate predictions across batches
-    y_true_cls = torch.cat(all_cls_true, dim=0)
-    y_pred_cls = torch.cat(all_cls_pred, dim=0)
-    y_true_seg = torch.cat(all_seg_true, dim=0)
-    y_pred_seg = torch.cat(all_seg_pred, dim=0)
+    y_true_cls = (
+        torch.cat(all_cls_true, dim=0)
+        if all_cls_true
+        else torch.tensor([], dtype=torch.long)
+    )
+    y_pred_cls = (
+        torch.cat(all_cls_pred, dim=0)
+        if all_cls_pred
+        else torch.tensor([], dtype=torch.float32)
+    )
 
     cls_metrics = compute_classification_metrics(y_true_cls, y_pred_cls)
-    seg_metrics = compute_segmentation_metrics(y_true_seg, y_pred_seg)
+    return val_loss, cls_metrics
 
-    return val_loss, cls_metrics, seg_metrics
+
+def run_smoke_test(
+    model: nn.Module,
+    optimizer: torch.optim.Optimizer,
+    criterion: nn.Module,
+    device: torch.device,
+    config: dict,
+) -> None:
+    """Execute minimal in-memory synthetic smoke test without generating disk files."""
+    print("=" * 60)
+    print("       FracSST-Mamba: In-Memory Synthetic Smoke Test        ")
+    print("=" * 60)
+    batch_size = 4
+    seq_len = config.get("model", {}).get("seq_len", 16)
+    in_features = getattr(model, "in_features", 256)
+    num_classes = getattr(model, "num_classes", 3)
+
+    # 1. Synthetic (B, T, F) tensor and (B,) labels
+    synthetic_x = torch.randn(batch_size, seq_len, in_features, device=device)
+    synthetic_y = torch.randint(0, num_classes, (batch_size,), device=device)
+
+    print(f"[Smoke] Input tensor shape:      {tuple(synthetic_x.shape)} (B, T, F)")
+    print(f"[Smoke] Target labels shape:     {tuple(synthetic_y.shape)} (B,)")
+
+    # 2. Forward pass
+    optimizer.zero_grad()
+    logits = model(synthetic_x)
+    print(f"[Smoke] Output logits shape:     {tuple(logits.shape)} (B, {num_classes})")
+    assert logits.shape == (batch_size, num_classes), (
+        f"Expected shape {(batch_size, num_classes)}, got {logits.shape}"
+    )
+
+    # 3. CrossEntropyLoss
+    loss = criterion(logits, synthetic_y)
+    print(f"[Smoke] CrossEntropyLoss:        {loss.item():.4f}")
+    assert not torch.isnan(loss), "Loss evaluated to NaN"
+
+    # 4. Backward gradient propagation
+    loss.backward()
+    print("[Smoke] Backward gradient pass:  PASS")
+
+    # 5. Optimizer step
+    optimizer.step()
+    print("[Smoke] Optimizer update step:   PASS")
+
+    # 6. Checkpoint save & load verification using isolated temporary directory
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ckpt_path = Path(temp_dir) / "smoke_checkpoint.pth"
+        save_checkpoint(
+            checkpoint_path=ckpt_path,
+            model=model,
+            optimizer=optimizer,
+            epoch=1,
+            val_accuracy=1.0,
+            config=config,
+        )
+        assert ckpt_path.exists(), "Checkpoint file was not created"
+        ckpt_data = load_checkpoint(
+            ckpt_path, model=model, optimizer=optimizer, device=device
+        )
+        assert ckpt_data.get("epoch") == 1, "Restored checkpoint epoch mismatch"
+        print("[Smoke] Checkpoint save & load:  PASS")
+
+    print("=" * 60)
+    print("Synthetic smoke test completed successfully!")
+    print("Pipeline contract (B, T, F) -> MambaClassifier -> (B, 3) is verified.")
+    print("=" * 60)
 
 
 def main() -> None:
     """Run model training and evaluation pipeline."""
     parser = argparse.ArgumentParser(
-        description="Train FracSST-Mamba model for Radar Human Activity Recognition."
+        description="Train FracSST-Mamba sequence classifier for Radar Human Activity Recognition."
     )
     parser.add_argument(
         "--config",
@@ -172,6 +251,11 @@ def main() -> None:
         help="Run 1 epoch dry-run for pipeline verification.",
     )
     parser.add_argument(
+        "--smoke-test",
+        action="store_true",
+        help="Run minimal in-memory synthetic smoke test without disk data.",
+    )
+    parser.add_argument(
         "--resume",
         type=str,
         default=None,
@@ -188,29 +272,24 @@ def main() -> None:
     config = load_config(args.config)
     print(f"[Train] Loaded configuration parameters from {args.config}")
 
-    # Ensure preprocessed data exists
-    processed_dir = Path("data/processed")
-    if not processed_dir.exists() or len(list(processed_dir.glob("*.pt"))) == 0:
-        print("[Train] Preprocessed data not found. Running offline DSP preprocessor...")
-        preprocess_all(Path("data/raw"), processed_dir)
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[Train] Target execution compute device: {device}")
 
     # Hyperparameters
-    batch_size = args.batch_size or config["training"].get("batch_size", 32)
-    n_epochs = 1 if args.dry_run else (args.epochs or config["training"].get("epochs", 50))
-    learning_rate = config["training"].get("lr", 0.001)
+    batch_size = args.batch_size or config.get("training", {}).get("batch_size", 32)
+    n_epochs = 1 if args.dry_run else (args.epochs or config.get("training", {}).get("epochs", 50))
+    learning_rate = config.get("training", {}).get("lr", 0.001)
 
     model_cfg = config.get("model", {})
+    in_features = model_cfg.get("in_features", 256)
     d_model = model_cfg.get("d_model", 128)
     n_layers = model_cfg.get("n_layers", 4)
     dropout = model_cfg.get("dropout", 0.1)
     num_classes = model_cfg.get("num_classes", 3)
 
-    # Initialize Model
-    model = DASegModel(
-        in_channels=1,
+    # Initialize MambaClassifier (Target Architecture)
+    model = MambaClassifier(
+        in_features=in_features,
         d_model=d_model,
         n_layers=n_layers,
         num_classes=num_classes,
@@ -218,7 +297,32 @@ def main() -> None:
     ).to(device)
 
     total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"[Train] DASegModel initialized with {total_params:,} trainable parameters.")
+    print(f"[Train] MambaClassifier initialized with {total_params:,} trainable parameters.")
+
+    # Optimizer & Single-Task Classification Loss
+    optimizer = AdamW(model.parameters(), lr=learning_rate, weight_decay=1e-4)
+    criterion_cls = nn.CrossEntropyLoss()
+
+    # In-memory smoke test execution path
+    if args.smoke_test:
+        run_smoke_test(
+            model=model,
+            optimizer=optimizer,
+            criterion=criterion_cls,
+            device=device,
+            config=config,
+        )
+        return
+
+    # Check for preprocessed dataset
+    processed_dir = Path("data/processed")
+    processed_files = list(processed_dir.glob("*.pt")) if processed_dir.exists() else []
+    if len(processed_files) == 0:
+        print("[Train] No preprocessed radar tensors found in data/processed/.")
+        print("[Train] Real dataset ingestion and preprocessing is in progress by the dataset teammate.")
+        print("[Train] To verify the full training pipeline in-memory right now, run:")
+        print("        python train.py --smoke-test")
+        return
 
     # DataLoaders
     train_loader, val_loader = create_dataloaders(
@@ -230,11 +334,6 @@ def main() -> None:
         f"[Train] Loaded {len(train_loader.dataset)} training samples, "
         f"{len(val_loader.dataset)} validation samples."
     )
-
-    # Optimizer & Loss Criteria
-    optimizer = AdamW(model.parameters(), lr=learning_rate, weight_decay=1e-4)
-    criterion_cls = nn.CrossEntropyLoss()
-    criterion_seg = nn.CrossEntropyLoss()
 
     start_epoch = 1
     best_val_acc = -1.0
@@ -261,84 +360,75 @@ def main() -> None:
         print("==================================================")
         print("     Evaluating Model Checkpoints (Eval-Only)     ")
         print("==================================================")
-        val_loss, cls_metrics, seg_metrics = validate(
+        val_loss, cls_metrics = validate(
             model=model,
             val_loader=val_loader,
-            criterion_cls=criterion_cls,
-            criterion_seg=criterion_seg,
-            num_classes=num_classes,
+            criterion=criterion_cls,
             device=device,
         )
         print(f"Validation Loss:             {val_loss:.4f}")
         print(f"Classification Accuracy:     {cls_metrics['accuracy'] * 100:.2f}%")
         print(f"Classification Macro F1:     {cls_metrics['f1_macro']:.4f}")
-        print(f"Frame Segmentation Accuracy: {seg_metrics['frame_accuracy'] * 100:.2f}%")
-        print(f"Frame Segmentation mIoU:     {seg_metrics['mIoU']:.4f}")
+        print(f"Classification Macro Prec:   {cls_metrics['precision_macro']:.4f}")
+        print(f"Classification Macro Recall: {cls_metrics['recall_macro']:.4f}")
         print("==================================================")
         return
 
-    weights_dir = Path("weights")
-    weights_dir.mkdir(parents=True, exist_ok=True)
-    best_model_path = weights_dir / "best_model.pth"
+    checkpoint_dir = Path(config.get("training", {}).get("checkpoint_dir", "weights"))
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    best_model_path = checkpoint_dir / "best_model.pth"
 
     print("==================================================")
     print("      Starting FracSST-Mamba Model Training       ")
     print("==================================================")
 
     for epoch in range(start_epoch, start_epoch + n_epochs):
-        train_loss, train_cls_loss, train_seg_loss = train_one_epoch(
+        train_loss = train_one_epoch(
             model=model,
             train_loader=train_loader,
             optimizer=optimizer,
-            criterion_cls=criterion_cls,
-            criterion_seg=criterion_seg,
-            num_classes=num_classes,
+            criterion=criterion_cls,
             device=device,
         )
 
-        val_loss, cls_metrics, seg_metrics = validate(
+        val_loss, cls_metrics = validate(
             model=model,
             val_loader=val_loader,
-            criterion_cls=criterion_cls,
-            criterion_seg=criterion_seg,
-            num_classes=num_classes,
+            criterion=criterion_cls,
             device=device,
         )
 
         val_acc = cls_metrics["accuracy"]
-        val_miou = seg_metrics["mIoU"]
-        val_frame_acc = seg_metrics["frame_accuracy"]
+        val_f1 = cls_metrics["f1_macro"]
 
         print(
             f"Epoch [{epoch:02d}/{start_epoch + n_epochs - 1:02d}] | "
-            f"Train Loss: {train_loss:.4f} (Cls: {train_cls_loss:.4f}, Seg: {train_seg_loss:.4f}) | "
+            f"Train Loss: {train_loss:.4f} | "
             f"Val Loss: {val_loss:.4f} | "
             f"Val Acc: {val_acc * 100:.2f}% | "
-            f"Val Frame Acc: {val_frame_acc * 100:.2f}% | "
-            f"Val mIoU: {val_miou:.4f}"
+            f"Val Macro F1: {val_f1:.4f}"
         )
 
         # Checkpoint saving when validation accuracy improves
         if val_acc >= best_val_acc:
             best_val_acc = val_acc
-            torch.save(
-                {
-                    "epoch": epoch,
-                    "model_state_dict": model.state_dict(),
-                    "optimizer_state_dict": optimizer.state_dict(),
-                    "val_accuracy": val_acc,
-                    "val_mIoU": val_miou,
-                    "config": config,
-                },
-                best_model_path,
+            save_checkpoint(
+                checkpoint_path=best_model_path,
+                model=model,
+                optimizer=optimizer,
+                epoch=epoch,
+                val_accuracy=val_acc,
+                config=config,
             )
-            print(f"  --> Saved new best checkpoint to {best_model_path} (Val Acc: {val_acc * 100:.2f}%)")
-
+            print(
+                f"  --> Saved new best checkpoint to {best_model_path} (Val Acc: {val_acc * 100:.2f}%)"
+            )
 
     print("==================================================")
     print(f"Training Complete! Best Validation Accuracy: {best_val_acc * 100:.2f}%")
     print(f"Best model weights saved to: {best_model_path}")
     print("==================================================")
+
 
 
 if __name__ == "__main__":

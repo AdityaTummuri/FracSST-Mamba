@@ -47,30 +47,42 @@ class RadarMambaDataset(Dataset):
 
     def __getitem__(
         self, idx: int
-    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-        """Fetch preprocessed radar sample.
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Fetch preprocessed radar sample formatted for Mamba sequence models.
 
         Args:
             idx: Sample index.
 
         Returns:
             Tuple containing:
-                - spectrogram_tensor: Tensor of shape (1, n_freq_bins, n_frames).
+                - spectrogram_sequence: Tensor of shape (n_frames, n_freq_bins) i.e. (T, F).
                 - sequence_class_label: Scalar Tensor with sequence-level class index.
-                - frame_segmentation_labels: Tensor of shape (n_frames,) with frame-level class indices.
         """
         file_path = self.files[idx]
         data = torch.load(file_path, weights_only=True)
 
-        spectrogram = data["spectrogram"]  # (n_freq_bins, n_frames)
-        label = data["label"]  # scalar long
-        segmentation_mask = data["segmentation_mask"]  # (n_frames,)
+        spectrogram = data["spectrogram"]
+        label = data["label"]
 
-        # Ensure channel dimension is present: (1, F, T)
-        if spectrogram.ndim == 2:
-            spectrogram = spectrogram.unsqueeze(0)
+        if not isinstance(spectrogram, torch.Tensor):
+            spectrogram = torch.tensor(spectrogram, dtype=torch.float32)
+        else:
+            spectrogram = spectrogram.to(dtype=torch.float32)
 
-        return spectrogram, label, segmentation_mask
+        if not isinstance(label, torch.Tensor):
+            label = torch.tensor(label, dtype=torch.long)
+        else:
+            label = label.to(dtype=torch.long)
+
+        # Standardize to (T, F) temporal sequence format
+        if spectrogram.ndim == 3 and spectrogram.shape[0] == 1:
+            spectrogram = spectrogram.squeeze(0)
+
+        # If shape is (F, T) where frequency bins > time frames, transpose to (T, F)
+        if spectrogram.ndim == 2 and spectrogram.shape[0] > spectrogram.shape[1]:
+            spectrogram = spectrogram.transpose(0, 1)
+
+        return spectrogram, label
 
 
 def create_dataloaders(

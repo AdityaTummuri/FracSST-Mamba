@@ -4,7 +4,7 @@ Computes accuracy, F1 score, precision, recall, confusion matrix, and temporal f
 segmentation metrics.
 """
 
-from typing import Dict
+from typing import Dict, Optional
 import numpy as np
 import torch
 
@@ -13,6 +13,46 @@ def _to_numpy(x: np.ndarray | torch.Tensor) -> np.ndarray:
     if isinstance(x, torch.Tensor):
         return x.detach().cpu().numpy()
     return np.asarray(x)
+
+
+def compute_confusion_matrix(
+    y_true: np.ndarray | torch.Tensor,
+    y_pred: np.ndarray | torch.Tensor,
+    num_classes: Optional[int] = None,
+) -> np.ndarray:
+    """Compute numerical classification confusion matrix.
+
+    Args:
+        y_true: Ground truth target labels of shape (N,).
+        y_pred: Predicted class label indices or logits of shape (N,) or (N, num_classes).
+        num_classes: Number of distinct classes. If None, inferred from labels/logits.
+
+    Returns:
+        Confusion matrix of shape (num_classes, num_classes) where rows are true
+        labels and columns are predicted labels.
+    """
+    y_true_np = _to_numpy(y_true).ravel()
+    y_pred_np = _to_numpy(y_pred)
+
+    if y_pred_np.ndim > 1:
+        if num_classes is None:
+            num_classes = y_pred_np.shape[-1]
+        y_pred_np = np.argmax(y_pred_np, axis=-1)
+    y_pred_np = y_pred_np.ravel()
+
+    if num_classes is None:
+        if len(y_true_np) == 0 and len(y_pred_np) == 0:
+            return np.zeros((0, 0), dtype=np.int64)
+        all_labels = np.concatenate([y_true_np, y_pred_np])
+        num_classes = int(np.max(all_labels)) + 1 if len(all_labels) > 0 else 0
+
+    cm = np.zeros((num_classes, num_classes), dtype=np.int64)
+    for t, p in zip(y_true_np, y_pred_np):
+        t_int, p_int = int(t), int(p)
+        if 0 <= t_int < num_classes and 0 <= p_int < num_classes:
+            cm[t_int, p_int] += 1
+
+    return cm
 
 
 def compute_classification_metrics(
@@ -59,6 +99,7 @@ def compute_classification_metrics(
         "recall_macro": float(np.mean(recalls)) if recalls else 0.0,
         "f1_macro": float(np.mean(f1s)) if f1s else 0.0,
     }
+
 
 
 def compute_segmentation_metrics(
