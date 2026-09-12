@@ -16,7 +16,10 @@ from data.dataset import create_dataloaders
 from dsp.synchrosqueezing import fracsst_1d
 from models.da_seg import DASegModel
 from preprocess import preprocess_all
+from utils.checkpoint import save_checkpoint, load_checkpoint
 from utils.metrics import compute_classification_metrics, compute_segmentation_metrics
+
+
 
 
 def load_config(config_path: str) -> dict:
@@ -168,6 +171,18 @@ def main() -> None:
         action="store_true",
         help="Run 1 epoch dry-run for pipeline verification.",
     )
+    parser.add_argument(
+        "--resume",
+        type=str,
+        default=None,
+        help="Path to checkpoint file (.pth) to resume training from.",
+    )
+    parser.add_argument(
+        "--eval-only",
+        type=str,
+        default=None,
+        help="Path to checkpoint file (.pth) to evaluate without training.",
+    )
     args = parser.parse_args()
 
     config = load_config(args.config)
@@ -216,22 +231,61 @@ def main() -> None:
         f"{len(val_loader.dataset)} validation samples."
     )
 
-    # Optimizer & Losses
+    # Optimizer & Loss Criteria
     optimizer = AdamW(model.parameters(), lr=learning_rate, weight_decay=1e-4)
     criterion_cls = nn.CrossEntropyLoss()
     criterion_seg = nn.CrossEntropyLoss()
+
+    start_epoch = 1
+    best_val_acc = -1.0
+
+    # Resume or Eval-Only Checkpoint Restore
+    ckpt_path = args.eval_only or args.resume
+    if ckpt_path:
+        ckpt_data = load_checkpoint(
+            checkpoint_path=ckpt_path,
+            model=model,
+            optimizer=optimizer if args.resume else None,
+            device=device,
+        )
+        print(f"[Train] Loaded checkpoint from: {ckpt_path}")
+        if "val_accuracy" in ckpt_data:
+            best_val_acc = ckpt_data["val_accuracy"]
+            print(f"[Train] Restored checkpoint validation accuracy: {best_val_acc * 100:.2f}%")
+        if args.resume and "epoch" in ckpt_data:
+            start_epoch = ckpt_data["epoch"] + 1
+            print(f"[Train] Resuming training from epoch {start_epoch}")
+
+    # Eval-Only Execution Path
+    if args.eval_only:
+        print("==================================================")
+        print("     Evaluating Model Checkpoints (Eval-Only)     ")
+        print("==================================================")
+        val_loss, cls_metrics, seg_metrics = validate(
+            model=model,
+            val_loader=val_loader,
+            criterion_cls=criterion_cls,
+            criterion_seg=criterion_seg,
+            num_classes=num_classes,
+            device=device,
+        )
+        print(f"Validation Loss:             {val_loss:.4f}")
+        print(f"Classification Accuracy:     {cls_metrics['accuracy'] * 100:.2f}%")
+        print(f"Classification Macro F1:     {cls_metrics['f1_macro']:.4f}")
+        print(f"Frame Segmentation Accuracy: {seg_metrics['frame_accuracy'] * 100:.2f}%")
+        print(f"Frame Segmentation mIoU:     {seg_metrics['mIoU']:.4f}")
+        print("==================================================")
+        return
 
     weights_dir = Path("weights")
     weights_dir.mkdir(parents=True, exist_ok=True)
     best_model_path = weights_dir / "best_model.pth"
 
-    best_val_acc = -1.0
-
     print("==================================================")
     print("      Starting FracSST-Mamba Model Training       ")
     print("==================================================")
 
-    for epoch in range(1, n_epochs + 1):
+    for epoch in range(start_epoch, start_epoch + n_epochs):
         train_loss, train_cls_loss, train_seg_loss = train_one_epoch(
             model=model,
             train_loader=train_loader,
@@ -256,7 +310,7 @@ def main() -> None:
         val_frame_acc = seg_metrics["frame_accuracy"]
 
         print(
-            f"Epoch [{epoch:02d}/{n_epochs:02d}] | "
+            f"Epoch [{epoch:02d}/{start_epoch + n_epochs - 1:02d}] | "
             f"Train Loss: {train_loss:.4f} (Cls: {train_cls_loss:.4f}, Seg: {train_seg_loss:.4f}) | "
             f"Val Loss: {val_loss:.4f} | "
             f"Val Acc: {val_acc * 100:.2f}% | "
@@ -265,7 +319,7 @@ def main() -> None:
         )
 
         # Checkpoint saving when validation accuracy improves
-        if val_acc > best_val_acc:
+        if val_acc >= best_val_acc:
             best_val_acc = val_acc
             torch.save(
                 {
@@ -279,6 +333,7 @@ def main() -> None:
                 best_model_path,
             )
             print(f"  --> Saved new best checkpoint to {best_model_path} (Val Acc: {val_acc * 100:.2f}%)")
+
 
     print("==================================================")
     print(f"Training Complete! Best Validation Accuracy: {best_val_acc * 100:.2f}%")
