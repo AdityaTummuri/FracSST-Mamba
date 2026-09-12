@@ -141,8 +141,11 @@ class DASegModel(nn.Module):
         if x.ndim == 3:
             x = x.unsqueeze(1)  # (B, 1, F, T)
 
-        # If shape is (B, C, T, F), transpose to (B, C, F, T) if F > T
+        # If shape is (B, C, T, F) where T < F, transpose to (B, C, F, T)
         b, c, dim1, dim2 = x.shape
+        if dim1 < dim2 and dim1 < 32 and dim2 >= 32:
+            x = x.transpose(2, 3)
+
 
         # Run through 2D Conv Stem
         feat_2d = self.stem(x)  # (B, d_model, F_out, T_out)

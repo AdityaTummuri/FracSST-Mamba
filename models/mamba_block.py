@@ -179,3 +179,80 @@ class MambaBlock(nn.Module):
         x_ssm = self.ssm(x_norm)
         x_drop = self.dropout(x_ssm)
         return residual + x_drop
+
+
+class MambaClassifier(nn.Module):
+    """Mamba Selective State-Space Sequence Classifier for Radar Activity Recognition.
+
+    Maps (batch_size, sequence_length, in_features) temporal frequency frames to
+    class predictions of shape (batch_size, num_classes).
+
+    Args:
+        in_features: Input feature dimension size per frame (e.g. F=256 frequency bins).
+        d_model: Internal feature projection and SSM state dimension size.
+        n_layers: Number of stacked Mamba sequence layers.
+        num_classes: Number of target activity classes.
+        dropout: Dropout rate applied across hidden layers.
+    """
+
+    def __init__(
+        self,
+        in_features: int = 256,
+        d_model: int = 128,
+        n_layers: int = 4,
+        num_classes: int = 3,
+        dropout: float = 0.1,
+    ):
+        super().__init__()
+        self.in_features = in_features
+        self.d_model = d_model
+        self.n_layers = n_layers
+        self.num_classes = num_classes
+
+        # 1. Feature Embedding (maps in_features -> d_model)
+        self.embedding = nn.Linear(in_features, d_model)
+
+        # 2. Stacked Mamba SSM Backbone
+        self.backbone = nn.ModuleList(
+            [
+                MambaBlock(
+                    d_model=d_model,
+                    d_state=16,
+                    d_conv=4,
+                    expand=2,
+                    dropout=dropout,
+                )
+                for _ in range(n_layers)
+            ]
+        )
+
+        # 3. Classification Head (Global average pooling over T -> Linear head)
+        self.head = nn.Sequential(
+            nn.Linear(d_model, d_model // 2),
+            nn.SiLU(),
+            nn.Dropout(dropout),
+            nn.Linear(d_model // 2, num_classes),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass for Mamba sequence classifier.
+
+        Args:
+            x: Input sequence tensor of shape (batch_size, seq_len, in_features).
+
+        Returns:
+            Logits tensor of shape (batch_size, num_classes).
+        """
+        # 1. Embed input features: (B, T, F) -> (B, T, d_model)
+        x_emb = self.embedding(x)
+
+        # 2. Sequential SSM feature extraction: (B, T, d_model) -> (B, T, d_model)
+        for block in self.backbone:
+            x_emb = block(x_emb)
+
+        # 3. Global Temporal Average Pooling: (B, T, d_model) -> (B, d_model)
+        pooled = torch.mean(x_emb, dim=1)
+
+        # 4. Classification Head: (B, d_model) -> (B, num_classes)
+        return self.head(pooled)
+
