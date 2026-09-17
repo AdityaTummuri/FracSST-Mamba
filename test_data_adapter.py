@@ -101,6 +101,38 @@ class TestUoGRadarAdapter(unittest.TestCase):
             f"Split manifest file count mismatch: {total_split_files} != 583",
         )
 
+    def test_real_data_mamba_pipeline(self):
+        """Verify real-data path: RadarMambaDataset (T, F) -> DataLoader (B, T, F) -> MambaClassifier (B, 3)."""
+        import torch
+        from data.dataset import RadarMambaDataset, create_dataloaders
+        from models.mamba_block import MambaClassifier
+
+        processed_dir = Path("data/processed")
+        if not processed_dir.exists() or len(list(processed_dir.glob("*.pt"))) == 0:
+            self.skipTest("No preprocessed .pt files found in data/processed")
+
+        # 1. Single sample contract: (T, F), label
+        dataset = RadarMambaDataset(data_dir=processed_dir)
+        spec, label = dataset[0]
+        self.assertEqual(spec.ndim, 2, f"Expected (T, F), got {spec.shape}")
+        self.assertEqual(spec.shape[1], 256, f"Expected F=256, got {spec.shape[1]}")
+        self.assertIn(spec.shape[0], (79, 157), f"Expected T in (79, 157), got {spec.shape[0]}")
+        self.assertIsInstance(label, torch.Tensor)
+
+        # 2. DataLoader batch contract: (B, T, F), (B,)
+        train_loader, _ = create_dataloaders(data_dir=processed_dir, batch_size=4, seed=42)
+        batch_specs, batch_labels = next(iter(train_loader))
+        self.assertEqual(batch_specs.ndim, 3)
+        self.assertEqual(batch_specs.shape[0], 4)
+        self.assertEqual(batch_specs.shape[2], 256)
+        self.assertEqual(batch_labels.shape[0], 4)
+
+        # 3. MambaClassifier contract: (B, T, F) -> (B, 3)
+        classifier = MambaClassifier(in_features=256, d_model=64, n_layers=2, num_classes=3)
+        logits = classifier(batch_specs)
+        self.assertEqual(logits.shape, (4, 3))
+
 
 if __name__ == "__main__":
     unittest.main()
+

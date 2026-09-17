@@ -1,0 +1,34 @@
+{
+  "dataset_name": "University of Glasgow INSHEP Radar Dataset (Dataset_848)",
+  "radar_hardware": "Ancortek FMCW C-Band (5.8 GHz)",
+  "raw_to_canonical_mapping": {
+    "1": {
+      "raw_name": "Walking back and forth",
+      "target_class_id": 0,
+      "target_class_name": "Walk",
+      "description": "Continuous dynamic walking motion generating periodic sinusoidal Doppler signatures"
+    },
+    "2": {
+      "raw_name": "Sitting down on a chair",
+      "target_class_id": 1,
+      "target_class_name": "Sit",
+      "description": "Deceleration transition into stationary baseline seated posture"
+    },
+    "6": {
+      "raw_name": "Simulated frontal fall",
+      "target_class_id": 2,
+      "target_class_name": "Fall",
+      "description": "Rapid acceleration quadratic frequency burst followed by cessation of motion"
+    }
+  },
+  "canonical_classes": {
+    "0": "Walk",
+    "1": "Sit",
+    "2": "Fall"
+  },
+  "pruned_raw_activities": {
+    "3": "Standing up (Excluded from 3-class benchmark)",
+    "4": "Bending to pick up object (Excluded from 3-class benchmark)",
+    "5": "Drinking from cup (Excluded from 3-class benchmark)"
+  }
+}
