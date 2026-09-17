@@ -1,0 +1,4189 @@
+{
+  "dataset_name": "University of Glasgow Micro-Doppler Radar (Dataset_848)",
+  "split_strategy": "Subject-Wise (Leave-Subjects-Out / Leakage-Safe)",
+  "random_seed": 42,
+  "summary": {
+    "total_files": 583,
+    "total_subjects": 60,
+    "train": {
+      "num_subjects": 42,
+      "num_files": 413,
+      "subjects": [
+        "P01",
+        "P04",
+        "P05",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P17",
+        "P29",
+        "P30",
+        "P31",
+        "P32",
+        "P33",
+        "P34",
+        "P35",
+        "P36",
+        "P37",
+        "P39",
+        "P40",
+        "P41",
+        "P42",
+        "P43",
+        "P44",
+        "P46",
+        "P47",
+        "P51",
+        "P52",
+        "P54",
+        "P55",
+        "P57",
+        "P58",
+        "P59",
+        "P61",
+        "P62",
+        "P63",
+        "P65",
+        "P66",
+        "P67",
+        "P68",
+        "P71",
+        "P72"
+      ],
+      "class_distribution": {
+        "Walk": 137,
+        "Sit": 137,
+        "Fall": 139
+      }
+    },
+    "validation": {
+      "num_subjects": 9,
+      "num_files": 88,
+      "subjects": [
+        "P03",
+        "P06",
+        "P07",
+        "P38",
+        "P45",
+        "P50",
+        "P56",
+        "P64",
+        "P70"
+      ],
+      "class_distribution": {
+        "Walk": 29,
+        "Sit": 30,
+        "Fall": 29
+      }
+    },
+    "test": {
+      "num_subjects": 9,
+      "num_files": 82,
+      "subjects": [
+        "P02",
+        "P08",
+        "P09",
+        "P15",
+        "P16",
+        "P28",
+        "P53",
+        "P60",
+        "P69"
+      ],
+      "class_distribution": {
+        "Walk": 28,
+        "Sit": 27,
+        "Fall": 27
+      }
+    }
+  },
+  "train_files": [
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P01A01R01.dat",
+      "filename": "1P01A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P01",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P01A01R02.dat",
+      "filename": "1P01A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P01",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P01A01R03.dat",
+      "filename": "1P01A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P01",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P01A02R01.dat",
+      "filename": "2P01A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P01",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P01A02R02.dat",
+      "filename": "2P01A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P01",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P01A02R03.dat",
+      "filename": "2P01A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P01",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P01A05R03.dat",
+      "filename": "6P01A05R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P01",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P01A06R01.dat",
+      "filename": "6P01A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P01",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P01A06R02.dat",
+      "filename": "6P01A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P01",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P01A06R03.dat",
+      "filename": "6P01A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P01",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P04A01R01.dat",
+      "filename": "1P04A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P04",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P04A01R02.dat",
+      "filename": "1P04A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P04",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P04A01R03.dat",
+      "filename": "1P04A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P04",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P04A02R01.dat",
+      "filename": "2P04A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P04",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P04A02R02.dat",
+      "filename": "2P04A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P04",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P04A02R03.dat",
+      "filename": "2P04A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P04",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P04A06R01.dat",
+      "filename": "6P04A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P04",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P04A06R02.dat",
+      "filename": "6P04A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P04",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P04A06R03.dat",
+      "filename": "6P04A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P04",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P05A01R01.dat",
+      "filename": "1P05A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P05",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P05A01R02.dat",
+      "filename": "1P05A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P05",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P05A01R03.dat",
+      "filename": "1P05A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P05",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P05A02R01.dat",
+      "filename": "2P05A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P05",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P05A02R02.dat",
+      "filename": "2P05A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P05",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P05A02R03.dat",
+      "filename": "2P05A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P05",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P05A06R01.dat",
+      "filename": "6P05A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P05",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P05A06R02.dat",
+      "filename": "6P05A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P05",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P05A06R03.dat",
+      "filename": "6P05A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P05",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P10A01R1.dat",
+      "filename": "1P10A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P10",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P10A01R2.dat",
+      "filename": "1P10A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P10",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P10A02R1.dat",
+      "filename": "2P10A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P10",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P10A06R1.dat",
+      "filename": "6P10A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P10",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P10A06R2.dat",
+      "filename": "6P10A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P10",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P10A01R01.dat",
+      "filename": "1P10A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P10",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P10A01R02.dat",
+      "filename": "1P10A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P10",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P10A01R03.dat",
+      "filename": "1P10A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P10",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P10A02R01.dat",
+      "filename": "2P10A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P10",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P10A02R02.dat",
+      "filename": "2P10A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P10",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P10A02R03.dat",
+      "filename": "2P10A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P10",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P10A06R01.dat",
+      "filename": "6P10A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P10",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P10A06R02.dat",
+      "filename": "6P10A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P10",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P10A06R03.dat",
+      "filename": "6P10A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P10",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P11A01R1.dat",
+      "filename": "1P11A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P11",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P11A01R2.dat",
+      "filename": "1P11A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P11",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P11A02R1.dat",
+      "filename": "2P11A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P11",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P11A02R2.dat",
+      "filename": "2P11A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P11",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P11A06R1.dat",
+      "filename": "6P11A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P11",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P11A06R2.dat",
+      "filename": "6P11A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P11",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P11A01R01.dat",
+      "filename": "1P11A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P11",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P11A01R02.dat",
+      "filename": "1P11A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P11",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P11A01R03.dat",
+      "filename": "1P11A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P11",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P11A02R01.dat",
+      "filename": "2P11A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P11",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P11A02R02.dat",
+      "filename": "2P11A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P11",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P11A02R03.dat",
+      "filename": "2P11A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P11",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P11A06R01.dat",
+      "filename": "6P11A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P11",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P11A06R02.dat",
+      "filename": "6P11A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P11",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P11A06R03.dat",
+      "filename": "6P11A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P11",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P12A01R1.dat",
+      "filename": "1P12A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P12",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P12A01R2.dat",
+      "filename": "1P12A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P12",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P12A02R3.dat",
+      "filename": "2P12A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P12",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P12A02R4.dat",
+      "filename": "2P12A02R4.dat",
+      "activity_label": "Sit",
+      "subject_id": "P12",
+      "repetition": "R4"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P12A06R1.dat",
+      "filename": "6P12A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P12",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P12A06R2.dat",
+      "filename": "6P12A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P12",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P12A01R01.dat",
+      "filename": "1P12A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P12",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P12A01R02.dat",
+      "filename": "1P12A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P12",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P12A01R03.dat",
+      "filename": "1P12A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P12",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P12A02R01.dat",
+      "filename": "2P12A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P12",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P12A02R02.dat",
+      "filename": "2P12A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P12",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P12A02R03.dat",
+      "filename": "2P12A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P12",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P12A06R01.dat",
+      "filename": "6P12A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P12",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P12A06R02.dat",
+      "filename": "6P12A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P12",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P12A06R03.dat",
+      "filename": "6P12A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P12",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P13A01R01.dat",
+      "filename": "1P13A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P13",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P13A01R02.dat",
+      "filename": "1P13A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P13",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P13A01R03.dat",
+      "filename": "1P13A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P13",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P13A02R01.dat",
+      "filename": "2P13A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P13",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P13A02R02.dat",
+      "filename": "2P13A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P13",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P13A02R03.dat",
+      "filename": "2P13A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P13",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P13A06R01.dat",
+      "filename": "6P13A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P13",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P13A06R02.dat",
+      "filename": "6P13A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P13",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P13A06R03.dat",
+      "filename": "6P13A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P13",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P14A01R1.dat",
+      "filename": "1P14A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P14A01R2.dat",
+      "filename": "1P14A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P14A01R3.dat",
+      "filename": "1P14A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P14A02R1.dat",
+      "filename": "2P14A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P14A02R2.dat",
+      "filename": "2P14A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P14A02R3.dat",
+      "filename": "2P14A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P14A06R1.dat",
+      "filename": "6P14A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P14A06R2.dat",
+      "filename": "6P14A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P14A06R3.dat",
+      "filename": "6P14A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P14A01R01.dat",
+      "filename": "1P14A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P14A01R02.dat",
+      "filename": "1P14A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P14A01R03.dat",
+      "filename": "1P14A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P14",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P14A02R01.dat",
+      "filename": "2P14A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P14A02R02.dat",
+      "filename": "2P14A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P14A02R03.dat",
+      "filename": "2P14A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P14",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P14A06R01.dat",
+      "filename": "6P14A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P14A06R02.dat",
+      "filename": "6P14A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P14A06R03.dat",
+      "filename": "6P14A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P14",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P17A01R01.dat",
+      "filename": "1P17A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P17",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P17A01R02.dat",
+      "filename": "1P17A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P17",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P17A01R03.dat",
+      "filename": "1P17A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P17",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P17A02R01.dat",
+      "filename": "2P17A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P17",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P17A02R02.dat",
+      "filename": "2P17A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P17",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P17A02R03.dat",
+      "filename": "2P17A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P17",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P17A06R01.dat",
+      "filename": "6P17A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P17",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P17A06R02.dat",
+      "filename": "6P17A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P17",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P17A06R03.dat",
+      "filename": "6P17A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P17",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P29A01R1.dat",
+      "filename": "1P29A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P29",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P29A01R2.dat",
+      "filename": "1P29A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P29",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P29A01R3.dat",
+      "filename": "1P29A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P29",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P29A02R1.dat",
+      "filename": "2P29A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P29",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P29A02R2.dat",
+      "filename": "2P29A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P29",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P29A02R3.dat",
+      "filename": "2P29A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P29",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P29A06R1.dat",
+      "filename": "6P29A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P29",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P29A06R2.dat",
+      "filename": "6P29A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P29",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P29A06R3.dat",
+      "filename": "6P29A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P29",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P30A01R1.dat",
+      "filename": "1P30A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P30",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P30A01R2.dat",
+      "filename": "1P30A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P30",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P30A01R3.dat",
+      "filename": "1P30A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P30",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P30A02R1.dat",
+      "filename": "2P30A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P30",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P30A02R2.dat",
+      "filename": "2P30A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P30",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P30A02R3.dat",
+      "filename": "2P30A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P30",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P30A06R1.dat",
+      "filename": "6P30A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P30",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P30A06R2.dat",
+      "filename": "6P30A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P30",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P30A06R3.dat",
+      "filename": "6P30A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P30",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P31A01R1.dat",
+      "filename": "1P31A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P31",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P31A01R2.dat",
+      "filename": "1P31A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P31",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P31A01R3.dat",
+      "filename": "1P31A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P31",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P31A02R1.dat",
+      "filename": "2P31A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P31",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P31A02R2.dat",
+      "filename": "2P31A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P31",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P31A02R3.dat",
+      "filename": "2P31A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P31",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P31A06R1.dat",
+      "filename": "6P31A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P31",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P31A06R2.dat",
+      "filename": "6P31A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P31",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P31A06R3.dat",
+      "filename": "6P31A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P31",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P32A01R1.dat",
+      "filename": "1P32A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P32",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P32A01R2.dat",
+      "filename": "1P32A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P32",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P32A01R3.dat",
+      "filename": "1P32A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P32",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P32A02R1.dat",
+      "filename": "2P32A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P32",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P32A02R2.dat",
+      "filename": "2P32A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P32",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P32A02R3.dat",
+      "filename": "2P32A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P32",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P32A06R1.dat",
+      "filename": "6P32A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P32",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P32A06R2.dat",
+      "filename": "6P32A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P32",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P32A06R3.dat",
+      "filename": "6P32A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P32",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P33A01R1.dat",
+      "filename": "1P33A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P33",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P33A01R2.dat",
+      "filename": "1P33A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P33",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P33A01R3.dat",
+      "filename": "1P33A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P33",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P33A02R1.dat",
+      "filename": "2P33A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P33",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P33A02R2.dat",
+      "filename": "2P33A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P33",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P33A02R3.dat",
+      "filename": "2P33A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P33",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P33A06R1.dat",
+      "filename": "6P33A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P33",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P33A06R2.dat",
+      "filename": "6P33A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P33",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P33A06R3.dat",
+      "filename": "6P33A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P33",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P34A01R1.dat",
+      "filename": "1P34A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P34",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P34A01R2.dat",
+      "filename": "1P34A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P34",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P34A01R3.dat",
+      "filename": "1P34A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P34",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P34A02R2.dat",
+      "filename": "2P34A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P34",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P34A02R3.dat",
+      "filename": "2P34A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P34",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P34A03R1.dat",
+      "filename": "2P34A03R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P34",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P34A06R1.dat",
+      "filename": "6P34A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P34",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P34A06R2.dat",
+      "filename": "6P34A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P34",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P34A06R3.dat",
+      "filename": "6P34A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P34",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P35A01R1.dat",
+      "filename": "1P35A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P35",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P35A01R2.dat",
+      "filename": "1P35A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P35",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P35A01R3.dat",
+      "filename": "1P35A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P35",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P35A02R1.dat",
+      "filename": "2P35A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P35",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P35A02R2.dat",
+      "filename": "2P35A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P35",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P35A02R3.dat",
+      "filename": "2P35A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P35",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P35A06R1.dat",
+      "filename": "6P35A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P35",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P35A06R2.dat",
+      "filename": "6P35A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P35",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P35A06R3.dat",
+      "filename": "6P35A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P35",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P36A01R01.dat",
+      "filename": "1P36A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P36",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P36A01R02.dat",
+      "filename": "1P36A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P36",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P36A01R03.dat",
+      "filename": "1P36A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P36",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P36A02R01.dat",
+      "filename": "2P36A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P36",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P36A02R02.dat",
+      "filename": "2P36A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P36",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P36A02R03.dat",
+      "filename": "2P36A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P36",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P36A06R01.dat",
+      "filename": "6P36A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P36",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P36A06R02.dat",
+      "filename": "6P36A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P36",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P36A06R03.dat",
+      "filename": "6P36A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P36",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P37A01R01.dat",
+      "filename": "1P37A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P37",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P37A01R02.dat",
+      "filename": "1P37A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P37",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P37A01R03.dat",
+      "filename": "1P37A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P37",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P37A02R01.dat",
+      "filename": "2P37A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P37",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P37A02R02.dat",
+      "filename": "2P37A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P37",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P37A02R03.dat",
+      "filename": "2P37A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P37",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P37A06R01.dat",
+      "filename": "6P37A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P37",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P37A06R02.dat",
+      "filename": "6P37A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P37",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P37A06R03.dat",
+      "filename": "6P37A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P37",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P39A01R01.dat",
+      "filename": "1P39A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P39",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P39A01R02.dat",
+      "filename": "1P39A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P39",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P39A01R03.dat",
+      "filename": "1P39A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P39",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P39A02R01.dat",
+      "filename": "2P39A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P39",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P39A02R02.dat",
+      "filename": "2P39A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P39",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P39A02R03.dat",
+      "filename": "2P39A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P39",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P39A06R01.dat",
+      "filename": "6P39A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P39",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P39A06R02.dat",
+      "filename": "6P39A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P39",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P39A06R03.dat",
+      "filename": "6P39A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P39",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P40A01R01.dat",
+      "filename": "1P40A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P40",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P40A01R02.dat",
+      "filename": "1P40A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P40",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P40A01R03.dat",
+      "filename": "1P40A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P40",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P40A02R01.dat",
+      "filename": "2P40A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P40",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P40A02R02.dat",
+      "filename": "2P40A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P40",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P40A02R03.dat",
+      "filename": "2P40A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P40",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P40A06R01.dat",
+      "filename": "6P40A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P40",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P40A06R02.dat",
+      "filename": "6P40A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P40",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P40A06R03.dat",
+      "filename": "6P40A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P40",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P41A01R01.dat",
+      "filename": "1P41A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P41",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P41A01R02.dat",
+      "filename": "1P41A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P41",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P41A01R03.dat",
+      "filename": "1P41A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P41",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P41A02R01.dat",
+      "filename": "2P41A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P41",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P41A02R02.dat",
+      "filename": "2P41A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P41",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P41A02R03.dat",
+      "filename": "2P41A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P41",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P41A06R01.dat",
+      "filename": "6P41A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P41",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P41A06R02.dat",
+      "filename": "6P41A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P41",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P41A06R03.dat",
+      "filename": "6P41A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P41",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P42A01R01.dat",
+      "filename": "1P42A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P42",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P42A01R02.dat",
+      "filename": "1P42A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P42",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P42A01R03.dat",
+      "filename": "1P42A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P42",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P42A02R01.dat",
+      "filename": "2P42A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P42",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P42A02R02.dat",
+      "filename": "2P42A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P42",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P42A02R03.dat",
+      "filename": "2P42A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P42",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P42A06R01.dat",
+      "filename": "6P42A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P42",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P42A06R02.dat",
+      "filename": "6P42A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P42",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P42A06R03.dat",
+      "filename": "6P42A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P42",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P43A01R01.dat",
+      "filename": "1P43A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P43",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P43A01R02.dat",
+      "filename": "1P43A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P43",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P43A01R03.dat",
+      "filename": "1P43A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P43",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P43A02R01.dat",
+      "filename": "2P43A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P43",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P43A02R02.dat",
+      "filename": "2P43A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P43",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P43A02R03.dat",
+      "filename": "2P43A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P43",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P43A06R01.dat",
+      "filename": "6P43A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P43",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P43A06R02.dat",
+      "filename": "6P43A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P43",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P43A06R03.dat",
+      "filename": "6P43A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P43",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P44A01R01.dat",
+      "filename": "1P44A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P44",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P44A01R02.dat",
+      "filename": "1P44A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P44",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P44A01R03.dat",
+      "filename": "1P44A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P44",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P44A02R01.dat",
+      "filename": "2P44A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P44",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P44A02R02.dat",
+      "filename": "2P44A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P44",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P44A02R03.dat",
+      "filename": "2P44A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P44",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P44A06R01.dat",
+      "filename": "6P44A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P44",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P44A06R02.dat",
+      "filename": "6P44A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P44",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P44A06R03.dat",
+      "filename": "6P44A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P44",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P46A01R01.dat",
+      "filename": "1P46A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P46",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P46A01R02.dat",
+      "filename": "1P46A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P46",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P46A01R03.dat",
+      "filename": "1P46A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P46",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P46A02R01.dat",
+      "filename": "2P46A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P46",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P46A02R02.dat",
+      "filename": "2P46A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P46",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P46A02R03.dat",
+      "filename": "2P46A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P46",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P46A06R01.dat",
+      "filename": "6P46A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P46",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P46A06R02.dat",
+      "filename": "6P46A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P46",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P46A06R03.dat",
+      "filename": "6P46A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P46",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P47A01R01.dat",
+      "filename": "1P47A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P47",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P47A01R02.dat",
+      "filename": "1P47A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P47",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P47A01R03.dat",
+      "filename": "1P47A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P47",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P47A02R01.dat",
+      "filename": "2P47A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P47",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P47A02R02.dat",
+      "filename": "2P47A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P47",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P47A02R03.dat",
+      "filename": "2P47A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P47",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P47A06R01.dat",
+      "filename": "6P47A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P47",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P47A06R02.dat",
+      "filename": "6P47A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P47",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P47A06R03.dat",
+      "filename": "6P47A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P47",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P51A01R01.dat",
+      "filename": "1P51A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P51",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P51A01R02.dat",
+      "filename": "1P51A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P51",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P51A01R03.dat",
+      "filename": "1P51A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P51",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P51A02R01.dat",
+      "filename": "2P51A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P51",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P51A02R02.dat",
+      "filename": "2P51A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P51",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P51A02R03.dat",
+      "filename": "2P51A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P51",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P51A06R01.dat",
+      "filename": "6P51A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P51",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P51A06R02.dat",
+      "filename": "6P51A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P51",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P51A06R03.dat",
+      "filename": "6P51A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P51",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P52A01R01.dat",
+      "filename": "1P52A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P52",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P52A01R02.dat",
+      "filename": "1P52A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P52",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P52A01R03.dat",
+      "filename": "1P52A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P52",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P52A02R01.dat",
+      "filename": "2P52A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P52",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P52A02R02.dat",
+      "filename": "2P52A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P52",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P52A02R03.dat",
+      "filename": "2P52A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P52",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P52A06R01.dat",
+      "filename": "6P52A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P52",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P52A06R02.dat",
+      "filename": "6P52A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P52",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P52A06R03.dat",
+      "filename": "6P52A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P52",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P54A01R02.dat",
+      "filename": "1P54A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P54",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P54A01R03.dat",
+      "filename": "1P54A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P54",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P54A02R01.dat",
+      "filename": "2P54A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P54",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P54A02R02.dat",
+      "filename": "2P54A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P54",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P54A02R03.dat",
+      "filename": "2P54A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P54",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P54A06R01.dat",
+      "filename": "6P54A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P54",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P54A06R02.dat",
+      "filename": "6P54A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P54",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P54A06R03.dat",
+      "filename": "6P54A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P54",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P55A01R01.dat",
+      "filename": "1P55A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P55",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P55A01R02.dat",
+      "filename": "1P55A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P55",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P55A01R03.dat",
+      "filename": "1P55A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P55",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P55A02R01.dat",
+      "filename": "2P55A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P55",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P55A02R02.dat",
+      "filename": "2P55A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P55",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P55A02R03.dat",
+      "filename": "2P55A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P55",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P55A06R01.dat",
+      "filename": "6P55A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P55",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P55A06R02.dat",
+      "filename": "6P55A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P55",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P55A06R03.dat",
+      "filename": "6P55A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P55",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P57A01R01.dat",
+      "filename": "1P57A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P57A01R02.dat",
+      "filename": "1P57A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P57A01R03.dat",
+      "filename": "1P57A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P57A02R01.dat",
+      "filename": "2P57A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P57A02R02.dat",
+      "filename": "2P57A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P57A02R03.dat",
+      "filename": "2P57A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P57A06R01.dat",
+      "filename": "6P57A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P57A06R02.dat",
+      "filename": "6P57A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P57A06R03.dat",
+      "filename": "6P57A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P57A01R1.dat",
+      "filename": "1P57A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P57A01R2.dat",
+      "filename": "1P57A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P57A01R3.dat",
+      "filename": "1P57A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P57",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P57A02R1.dat",
+      "filename": "2P57A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P57A02R2.dat",
+      "filename": "2P57A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P57A02R3.dat",
+      "filename": "2P57A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P57",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P57A06R1.dat",
+      "filename": "6P57A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P57A06R2.dat",
+      "filename": "6P57A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P57A06R3.dat",
+      "filename": "6P57A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P57",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P58A01R1.dat",
+      "filename": "1P58A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P58",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P58A01R2.dat",
+      "filename": "1P58A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P58",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P58A01R3.dat",
+      "filename": "1P58A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P58",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P58A02R1.dat",
+      "filename": "2P58A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P58",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P58A02R2.dat",
+      "filename": "2P58A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P58",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P58A02R3.dat",
+      "filename": "2P58A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P58",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P58A06R1.dat",
+      "filename": "6P58A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P58",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P58A06R2.dat",
+      "filename": "6P58A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P58",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P58A06R3.dat",
+      "filename": "6P58A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P58",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P59A01R1.dat",
+      "filename": "1P59A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P59",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P59A01R2.dat",
+      "filename": "1P59A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P59",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P59A01R3.dat",
+      "filename": "1P59A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P59",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P59A02R1.dat",
+      "filename": "2P59A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P59",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P59A02R2.dat",
+      "filename": "2P59A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P59",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P59A02R3.dat",
+      "filename": "2P59A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P59",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P59A06R1.dat",
+      "filename": "6P59A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P59",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P59A06R2.dat",
+      "filename": "6P59A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P59",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P59A06R3.dat",
+      "filename": "6P59A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P59",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P61A01R1.dat",
+      "filename": "1P61A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P61",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P61A01R2.dat",
+      "filename": "1P61A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P61",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P61A01R3.dat",
+      "filename": "1P61A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P61",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P61A02R1.dat",
+      "filename": "2P61A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P61",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P61A02R2.dat",
+      "filename": "2P61A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P61",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P61A02R3.dat",
+      "filename": "2P61A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P61",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P61A06R1.dat",
+      "filename": "6P61A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P61",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P61A06R2.dat",
+      "filename": "6P61A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P61",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P61A06R3.dat",
+      "filename": "6P61A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P61",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P62A01R1.dat",
+      "filename": "1P62A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P62",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P62A01R2.dat",
+      "filename": "1P62A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P62",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P62A01R3.dat",
+      "filename": "1P62A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P62",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P62A02R1.dat",
+      "filename": "2P62A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P62",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P62A02R2.dat",
+      "filename": "2P62A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P62",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P62A02R3.dat",
+      "filename": "2P62A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P62",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P62A06R1.dat",
+      "filename": "6P62A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P62",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P62A06R2.dat",
+      "filename": "6P62A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P62",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P62A06R3.dat",
+      "filename": "6P62A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P62",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P63A01R1.dat",
+      "filename": "1P63A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P63",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P63A01R2.dat",
+      "filename": "1P63A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P63",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P63A01R3.dat",
+      "filename": "1P63A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P63",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P63A02R1.dat",
+      "filename": "2P63A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P63",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P63A02R2.dat",
+      "filename": "2P63A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P63",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P63A02R3.dat",
+      "filename": "2P63A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P63",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P63A06R1.dat",
+      "filename": "6P63A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P63",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P63A06R2.dat",
+      "filename": "6P63A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P63",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P63A06R3.dat",
+      "filename": "6P63A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P63",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P65A01R1.dat",
+      "filename": "1P65A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P65",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P65A01R2.dat",
+      "filename": "1P65A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P65",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P65A01R3.dat",
+      "filename": "1P65A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P65",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P65A02R1.dat",
+      "filename": "2P65A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P65",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P65A02R2.dat",
+      "filename": "2P65A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P65",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P65A02R3.dat",
+      "filename": "2P65A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P65",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P65A06R1.dat",
+      "filename": "6P65A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P65",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P65A06R2.dat",
+      "filename": "6P65A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P65",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P65A06R3.dat",
+      "filename": "6P65A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P65",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P66A01R1.dat",
+      "filename": "1P66A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P66",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P66A01R2.dat",
+      "filename": "1P66A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P66",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P66A01R3.dat",
+      "filename": "1P66A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P66",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P66A02R1.dat",
+      "filename": "2P66A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P66",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P66A02R2.dat",
+      "filename": "2P66A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P66",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P66A02R3.dat",
+      "filename": "2P66A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P66",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P66A06R1.dat",
+      "filename": "6P66A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P66",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P66A06R2.dat",
+      "filename": "6P66A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P66",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P66A06R3.dat",
+      "filename": "6P66A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P66",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P67A01R1.dat",
+      "filename": "1P67A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P67",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P67A01R2.dat",
+      "filename": "1P67A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P67",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P67A01R3.dat",
+      "filename": "1P67A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P67",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P67A02R1.dat",
+      "filename": "2P67A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P67",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P67A02R2.dat",
+      "filename": "2P67A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P67",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P67A02R3.dat",
+      "filename": "2P67A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P67",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P67A06R1.dat",
+      "filename": "6P67A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P67",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P67A06R2.dat",
+      "filename": "6P67A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P67",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P67A06R3.dat",
+      "filename": "6P67A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P67",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P68A01R1.dat",
+      "filename": "1P68A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P68",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P68A01R2.dat",
+      "filename": "1P68A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P68",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P68A01R3.dat",
+      "filename": "1P68A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P68",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P68A02R1.dat",
+      "filename": "2P68A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P68",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P68A02R2.dat",
+      "filename": "2P68A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P68",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P68A02R3.dat",
+      "filename": "2P68A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P68",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P68A06R1.dat",
+      "filename": "6P68A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P68",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P68A06R2.dat",
+      "filename": "6P68A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P68",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P68A06R3.dat",
+      "filename": "6P68A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P68",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P71A01R1.dat",
+      "filename": "1P71A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P71",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P71A01R2.dat",
+      "filename": "1P71A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P71",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P71A01R3.dat",
+      "filename": "1P71A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P71",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P71A02R1.dat",
+      "filename": "2P71A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P71",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P71A02R2.dat",
+      "filename": "2P71A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P71",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P71A02R3.dat",
+      "filename": "2P71A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P71",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P71A06R1.dat",
+      "filename": "6P71A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P71",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P71A06R2.dat",
+      "filename": "6P71A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P71",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P71A06R3.dat",
+      "filename": "6P71A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P71",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P72A01R1.dat",
+      "filename": "1P72A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P72",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P72A01R2.dat",
+      "filename": "1P72A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P72",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P72A01R3.dat",
+      "filename": "1P72A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P72",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P72A02R1.dat",
+      "filename": "2P72A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P72",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P72A02R2.dat",
+      "filename": "2P72A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P72",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P72A02R3.dat",
+      "filename": "2P72A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P72",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P72A06R1.dat",
+      "filename": "6P72A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P72",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P72A06R2.dat",
+      "filename": "6P72A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P72",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P72A06R3.dat",
+      "filename": "6P72A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P72",
+      "repetition": "R3"
+    }
+  ],
+  "val_files": [
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P03A01R1.dat",
+      "filename": "1P03A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P03",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/1P03A01R2.dat",
+      "filename": "1P03A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P03",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P03A02R1.dat",
+      "filename": "2P03A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P03A02R2.dat",
+      "filename": "2P03A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/2P03A02R3.dat",
+      "filename": "2P03A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P03A06R1.dat",
+      "filename": "6P03A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P03",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/2 March 2017 Dataset/6P03A06R2.dat",
+      "filename": "6P03A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P03",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P03A01R01.dat",
+      "filename": "1P03A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P03",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P03A01R02.dat",
+      "filename": "1P03A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P03",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P03A01R03.dat",
+      "filename": "1P03A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P03",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P03A02R01.dat",
+      "filename": "2P03A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P03A02R02.dat",
+      "filename": "2P03A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P03A02R03.dat",
+      "filename": "2P03A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P03",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P03A06R01.dat",
+      "filename": "6P03A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P03",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P03A06R02.dat",
+      "filename": "6P03A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P03",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P03A06R03.dat",
+      "filename": "6P03A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P03",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P06A01R01.dat",
+      "filename": "1P06A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P06",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P06A01R02.dat",
+      "filename": "1P06A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P06",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P06A01R03.dat",
+      "filename": "1P06A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P06",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P06A02R01.dat",
+      "filename": "2P06A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P06",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P06A02R02.dat",
+      "filename": "2P06A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P06",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P06A02R03.dat",
+      "filename": "2P06A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P06",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P06A06R01.dat",
+      "filename": "6P06A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P06",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P06A06R02.dat",
+      "filename": "6P06A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P06",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P06A06R03.dat",
+      "filename": "6P06A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P06",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P07A01R01.dat",
+      "filename": "1P07A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P07",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P07A01R02.dat",
+      "filename": "1P07A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P07",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P07A01R03.dat",
+      "filename": "1P07A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P07",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P07A02R01.dat",
+      "filename": "2P07A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P07",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P07A02R02.dat",
+      "filename": "2P07A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P07",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P07A02R03.dat",
+      "filename": "2P07A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P07",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P07A06R01.dat",
+      "filename": "6P07A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P07",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P07A06R02.dat",
+      "filename": "6P07A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P07",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P07A06R03.dat",
+      "filename": "6P07A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P07",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P38A01R01.dat",
+      "filename": "1P38A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P38",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P38A01R02.dat",
+      "filename": "1P38A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P38",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P38A01R03.dat",
+      "filename": "1P38A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P38",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P38A02R01.dat",
+      "filename": "2P38A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P38",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P38A02R02.dat",
+      "filename": "2P38A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P38",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P38A02R03.dat",
+      "filename": "2P38A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P38",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P38A06R01.dat",
+      "filename": "6P38A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P38",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P38A06R02.dat",
+      "filename": "6P38A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P38",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P38A06R03.dat",
+      "filename": "6P38A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P38",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P45A01R01.dat",
+      "filename": "1P45A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P45",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P45A01R02.dat",
+      "filename": "1P45A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P45",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P45A01R03.dat",
+      "filename": "1P45A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P45",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P45A02R01.dat",
+      "filename": "2P45A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P45",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P45A02R02.dat",
+      "filename": "2P45A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P45",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P45A02R03.dat",
+      "filename": "2P45A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P45",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P45A06R01.dat",
+      "filename": "6P45A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P45",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P45A06R02.dat",
+      "filename": "6P45A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P45",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P45A06R03.dat",
+      "filename": "6P45A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P45",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P50A01R01.dat",
+      "filename": "1P50A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P50",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P50A01R02.dat",
+      "filename": "1P50A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P50",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P50A01R03.dat",
+      "filename": "1P50A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P50",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P50A02R01.dat",
+      "filename": "2P50A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P50",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P50A02R02.dat",
+      "filename": "2P50A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P50",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P50A02R03.dat",
+      "filename": "2P50A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P50",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P50A06R01.dat",
+      "filename": "6P50A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P50",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P50A06R02.dat",
+      "filename": "6P50A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P50",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P50A06R03.dat",
+      "filename": "6P50A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P50",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P56A01R01.dat",
+      "filename": "1P56A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P56",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P56A01R02.dat",
+      "filename": "1P56A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P56",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P56A01R03.dat",
+      "filename": "1P56A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P56",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P56A02R01.dat",
+      "filename": "2P56A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P56",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P56A02R02.dat",
+      "filename": "2P56A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P56",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P56A02R03.dat",
+      "filename": "2P56A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P56",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P56A06R01.dat",
+      "filename": "6P56A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P56",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P56A06R02.dat",
+      "filename": "6P56A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P56",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P56A06R03.dat",
+      "filename": "6P56A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P56",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P64A01R1.dat",
+      "filename": "1P64A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P64",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P64A01R2.dat",
+      "filename": "1P64A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P64",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P64A01R3.dat",
+      "filename": "1P64A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P64",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P64A02R1.dat",
+      "filename": "2P64A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P64",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P64A02R2.dat",
+      "filename": "2P64A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P64",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P64A02R3.dat",
+      "filename": "2P64A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P64",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P64A06R1.dat",
+      "filename": "6P64A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P64",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P64A06R2.dat",
+      "filename": "6P64A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P64",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P64A06R3.dat",
+      "filename": "6P64A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P64",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P70A01R1.dat",
+      "filename": "1P70A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P70",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P70A01R2.dat",
+      "filename": "1P70A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P70",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P70A01R3.dat",
+      "filename": "1P70A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P70",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P70A02R1.dat",
+      "filename": "2P70A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P70",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P70A02R2.dat",
+      "filename": "2P70A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P70",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P70A02R3.dat",
+      "filename": "2P70A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P70",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P70A06R1.dat",
+      "filename": "6P70A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P70",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P70A06R2.dat",
+      "filename": "6P70A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P70",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P70A06R3.dat",
+      "filename": "6P70A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P70",
+      "repetition": "R3"
+    }
+  ],
+  "test_files": [
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P02A01R01.dat",
+      "filename": "1P02A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P02",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P02A01R02.dat",
+      "filename": "1P02A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P02",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P02A01R03.dat",
+      "filename": "1P02A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P02",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P02A02R01.dat",
+      "filename": "2P02A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P02",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P02A02R02.dat",
+      "filename": "2P02A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P02",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P02A02R03.dat",
+      "filename": "2P02A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P02",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P02A06R01.dat",
+      "filename": "6P02A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P02",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P02A06R02.dat",
+      "filename": "6P02A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P02",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P02A06R03.dat",
+      "filename": "6P02A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P02",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P08A01R01.dat",
+      "filename": "1P08A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P08",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P08A01R02.dat",
+      "filename": "1P08A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P08",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P08A01R03.dat",
+      "filename": "1P08A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P08",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P08A02R01.dat",
+      "filename": "2P08A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P08",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P08A02R02.dat",
+      "filename": "2P08A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P08",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P08A02R03.dat",
+      "filename": "2P08A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P08",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P08A06R01.dat",
+      "filename": "6P08A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P08",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P08A06R02.dat",
+      "filename": "6P08A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P08",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P08A06R03.dat",
+      "filename": "6P08A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P08",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P09A01R01.dat",
+      "filename": "1P09A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P09",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P09A01R02.dat",
+      "filename": "1P09A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P09",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P09A01R03.dat",
+      "filename": "1P09A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P09",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P09A02R01.dat",
+      "filename": "2P09A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P09",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P09A02R02.dat",
+      "filename": "2P09A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P09",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P09A02R03.dat",
+      "filename": "2P09A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P09",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P09A06R01.dat",
+      "filename": "6P09A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P09",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P09A06R02.dat",
+      "filename": "6P09A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P09",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P09A06R03.dat",
+      "filename": "6P09A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P09",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P15A01R01.dat",
+      "filename": "1P15A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P15",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P15A01R02.dat",
+      "filename": "1P15A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P15",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P15A01R03.dat",
+      "filename": "1P15A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P15",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P15A02R01.dat",
+      "filename": "2P15A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P15",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P15A02R02.dat",
+      "filename": "2P15A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P15",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P15A02R03.dat",
+      "filename": "2P15A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P15",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P15A06R01.dat",
+      "filename": "6P15A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P15",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P15A06R02.dat",
+      "filename": "6P15A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P15",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P15A06R03.dat",
+      "filename": "6P15A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P15",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P16A01R01.dat",
+      "filename": "1P16A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P16",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P16A01R02.dat",
+      "filename": "1P16A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P16",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/1P16A01R03.dat",
+      "filename": "1P16A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P16",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P16A02R01.dat",
+      "filename": "2P16A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P16",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P16A02R02.dat",
+      "filename": "2P16A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P16",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/2P16A02R03.dat",
+      "filename": "2P16A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P16",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P16A06R01.dat",
+      "filename": "6P16A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P16",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P16A06R02.dat",
+      "filename": "6P16A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P16",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/5 February 2019 UoG Dataset/6P16A06R03.dat",
+      "filename": "6P16A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P16",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P28A01R1.dat",
+      "filename": "1P28A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P28",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P28A01R2.dat",
+      "filename": "1P28A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P28",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/1P28A01R3.dat",
+      "filename": "1P28A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P28",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P28A02R1.dat",
+      "filename": "2P28A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P28",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P28A02R2.dat",
+      "filename": "2P28A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P28",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/2P28A02R3.dat",
+      "filename": "2P28A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P28",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P28A06R1.dat",
+      "filename": "6P28A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P28",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P28A06R2.dat",
+      "filename": "6P28A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P28",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/3 June 2017 Dataset/6P28A06R3.dat",
+      "filename": "6P28A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P28",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P53A01R01.dat",
+      "filename": "1P53A01R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P53",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P53A01R02.dat",
+      "filename": "1P53A01R02.dat",
+      "activity_label": "Walk",
+      "subject_id": "P53",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P53A01R03.dat",
+      "filename": "1P53A01R03.dat",
+      "activity_label": "Walk",
+      "subject_id": "P53",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/1P53A1R01.dat",
+      "filename": "1P53A1R01.dat",
+      "activity_label": "Walk",
+      "subject_id": "P53",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P53A02R01.dat",
+      "filename": "2P53A02R01.dat",
+      "activity_label": "Sit",
+      "subject_id": "P53",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P53A02R02.dat",
+      "filename": "2P53A02R02.dat",
+      "activity_label": "Sit",
+      "subject_id": "P53",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/2P53A02R03.dat",
+      "filename": "2P53A02R03.dat",
+      "activity_label": "Sit",
+      "subject_id": "P53",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P53A06R01.dat",
+      "filename": "6P53A06R01.dat",
+      "activity_label": "Fall",
+      "subject_id": "P53",
+      "repetition": "R01"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P53A06R02.dat",
+      "filename": "6P53A06R02.dat",
+      "activity_label": "Fall",
+      "subject_id": "P53",
+      "repetition": "R02"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/1 December 2017 Dataset/6P53A06R03.dat",
+      "filename": "6P53A06R03.dat",
+      "activity_label": "Fall",
+      "subject_id": "P53",
+      "repetition": "R03"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P60A01R1.dat",
+      "filename": "1P60A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P60",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P60A01R2.dat",
+      "filename": "1P60A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P60",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P60A01R3.dat",
+      "filename": "1P60A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P60",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P60A02R1.dat",
+      "filename": "2P60A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P60",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P60A02R2.dat",
+      "filename": "2P60A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P60",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P60A02R3.dat",
+      "filename": "2P60A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P60",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P60A06R1.dat",
+      "filename": "6P60A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P60",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P60A06R2.dat",
+      "filename": "6P60A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P60",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P60A06R3.dat",
+      "filename": "6P60A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P60",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P69A01R1.dat",
+      "filename": "1P69A01R1.dat",
+      "activity_label": "Walk",
+      "subject_id": "P69",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P69A01R2.dat",
+      "filename": "1P69A01R2.dat",
+      "activity_label": "Walk",
+      "subject_id": "P69",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/1P69A01R3.dat",
+      "filename": "1P69A01R3.dat",
+      "activity_label": "Walk",
+      "subject_id": "P69",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P69A02R1.dat",
+      "filename": "2P69A02R1.dat",
+      "activity_label": "Sit",
+      "subject_id": "P69",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P69A02R2.dat",
+      "filename": "2P69A02R2.dat",
+      "activity_label": "Sit",
+      "subject_id": "P69",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/2P69A02R3.dat",
+      "filename": "2P69A02R3.dat",
+      "activity_label": "Sit",
+      "subject_id": "P69",
+      "repetition": "R3"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P69A06R1.dat",
+      "filename": "6P69A06R1.dat",
+      "activity_label": "Fall",
+      "subject_id": "P69",
+      "repetition": "R1"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P69A06R2.dat",
+      "filename": "6P69A06R2.dat",
+      "activity_label": "Fall",
+      "subject_id": "P69",
+      "repetition": "R2"
+    },
+    {
+      "file_path": "data/raw/Dataset_848/4 July 2018 Dataset/6P69A06R3.dat",
+      "filename": "6P69A06R3.dat",
+      "activity_label": "Fall",
+      "subject_id": "P69",
+      "repetition": "R3"
+    }
+  ]
+}

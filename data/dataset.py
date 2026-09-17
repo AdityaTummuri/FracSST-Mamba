@@ -1,7 +1,7 @@
 """PyTorch Dataset and DataLoader module for FracSST-Mamba radar data.
 
-Loads preprocessed FracSST spectrogram tensors and corresponding sequence class
-and temporal segmentation targets.
+Loads preprocessed FracSST spectrogram tensors and corresponding sequence class labels.
+Provides uniform (B, T, F) batch tensors for MambaClassifier sequence modeling.
 """
 
 from pathlib import Path
@@ -12,6 +12,10 @@ from torch.utils.data import DataLoader, Dataset, random_split
 
 class RadarMambaDataset(Dataset):
     """PyTorch Dataset for FracSST-Mamba preprocessed radar spectrograms.
+
+    Produces:
+        spectrogram_sequence: Tensor of shape (n_frames, n_freq_bins) i.e. (T, F).
+        sequence_class_label: Scalar Tensor with sequence-level class index (0: Walk, 1: Sit, 2: Fall).
 
     Args:
         data_dir: Path to directory containing .pt preprocessed files.
@@ -85,14 +89,56 @@ class RadarMambaDataset(Dataset):
         return spectrogram, label
 
 
+def pad_collate_fn(batch):
+    """Collate function that pads variable-length time sequences (T, F) to max_T in the batch.
+
+    Ensures the DataLoader produces a uniform (B, max_T, F) tensor regardless of whether
+    the batch contains 5s recordings (T=79), 10s recordings (T=157), or a mixture.
+    """
+    max_t = max(item[0].shape[0] for item in batch)
+    f_dim = batch[0][0].shape[1]
+    batch_size = len(batch)
+
+    padded_specs = torch.zeros((batch_size, max_t, f_dim), dtype=torch.float32)
+    labels = torch.empty((batch_size,), dtype=torch.long)
+
+    for i, (spec, label) in enumerate(batch):
+        t_len = spec.shape[0]
+        padded_specs[i, :t_len, :] = spec
+        labels[i] = label
+
+    return padded_specs, labels
+
+        if not isinstance(spectrogram, torch.Tensor):
+            spectrogram = torch.tensor(spectrogram, dtype=torch.float32)
+        else:
+            spectrogram = spectrogram.to(dtype=torch.float32)
+
+        if not isinstance(label, torch.Tensor):
+            label = torch.tensor(label, dtype=torch.long)
+        else:
+            label = label.to(dtype=torch.long)
+
+        # Standardize to (T, F) temporal sequence format
+        if spectrogram.ndim == 3 and spectrogram.shape[0] == 1:
+            spectrogram = spectrogram.squeeze(0)
+
+        # If shape is (F, T) where frequency bins > time frames, transpose to (T, F)
+        if spectrogram.ndim == 2 and spectrogram.shape[0] > spectrogram.shape[1]:
+            spectrogram = spectrogram.transpose(0, 1)
+
+        return spectrogram, label
+
+
 def create_dataloaders(
     data_dir: Union[str, Path] = "data/processed",
     batch_size: int = 16,
     val_split: float = 0.2,
     num_workers: int = 0,
     seed: int = 42,
+    file_paths: Optional[List[Union[str, Path]]] = None,
 ) -> Tuple[DataLoader, DataLoader]:
-    """Construct Train and Validation PyTorch DataLoaders.
+    """Construct Train and Validation PyTorch DataLoaders yielding (B, T, F) tensors.
 
     Args:
         data_dir: Path to directory containing preprocessed .pt files.
@@ -100,11 +146,14 @@ def create_dataloaders(
         val_split: Fraction of dataset reserved for validation.
         num_workers: DataLoader worker subprocesses count.
         seed: Random seed for dataset split.
+        file_paths: Optional explicit list of .pt files.
 
     Returns:
         Tuple containing (train_loader, val_loader).
     """
-    dataset = RadarMambaDataset(data_dir=data_dir)
+    dataset = RadarMambaDataset(
+        data_dir=data_dir, file_paths=file_paths
+    )
     total_samples = len(dataset)
 
     val_size = max(1, int(total_samples * val_split))
@@ -120,12 +169,14 @@ def create_dataloaders(
         batch_size=min(batch_size, len(train_set)),
         shuffle=True,
         num_workers=num_workers,
+        collate_fn=pad_collate_fn,
     )
     val_loader = DataLoader(
         val_set,
         batch_size=min(batch_size, len(val_set)),
         shuffle=False,
         num_workers=num_workers,
+        collate_fn=pad_collate_fn,
     )
 
     return train_loader, val_loader
