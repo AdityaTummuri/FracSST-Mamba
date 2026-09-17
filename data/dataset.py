@@ -109,6 +109,26 @@ def pad_collate_fn(batch):
 
     return padded_specs, labels
 
+        if not isinstance(spectrogram, torch.Tensor):
+            spectrogram = torch.tensor(spectrogram, dtype=torch.float32)
+        else:
+            spectrogram = spectrogram.to(dtype=torch.float32)
+
+        if not isinstance(label, torch.Tensor):
+            label = torch.tensor(label, dtype=torch.long)
+        else:
+            label = label.to(dtype=torch.long)
+
+        # Standardize to (T, F) temporal sequence format
+        if spectrogram.ndim == 3 and spectrogram.shape[0] == 1:
+            spectrogram = spectrogram.squeeze(0)
+
+        # If shape is (F, T) where frequency bins > time frames, transpose to (T, F)
+        if spectrogram.ndim == 2 and spectrogram.shape[0] > spectrogram.shape[1]:
+            spectrogram = spectrogram.transpose(0, 1)
+
+        return spectrogram, label
+
 
 def create_dataloaders(
     data_dir: Union[str, Path] = "data/processed",

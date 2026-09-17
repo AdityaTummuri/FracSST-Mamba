@@ -16,7 +16,12 @@ from data.schema import RadarSample
 from models.mamba_block import MambaBlock, MambaClassifier
 from models.da_seg import DASegModel
 from utils.checkpoint import save_checkpoint, load_checkpoint
-from utils.metrics import compute_classification_metrics, compute_segmentation_metrics
+from utils.metrics import (
+    compute_classification_metrics,
+    compute_confusion_matrix,
+    compute_segmentation_metrics,
+)
+
 
 
 class TestMambaBlock(unittest.TestCase):
@@ -144,11 +149,18 @@ class TestDASegModel(unittest.TestCase):
         self.assertEqual(seg_logits.shape, (self.batch_size, self.time_steps, self.num_classes))
 
     def test_metrics_computation(self) -> None:
-        """Verify accuracy, F1, and mIoU metric calculation functions."""
+        """Verify accuracy, F1, mIoU, and confusion matrix calculation functions."""
         y_true_cls = torch.tensor([0, 1, 2, 0])
         y_pred_cls = torch.tensor([[2.0, 0.1, 0.0], [0.1, 2.0, 0.0], [0.0, 0.1, 2.0], [2.0, 0.1, 0.0]])
         cls_metrics = compute_classification_metrics(y_true_cls, y_pred_cls)
         self.assertEqual(cls_metrics["accuracy"], 1.0)
+        self.assertEqual(cls_metrics["f1_macro"], 1.0)
+
+        # Verify numerical confusion matrix
+        cm = compute_confusion_matrix(y_true_cls, y_pred_cls, num_classes=3)
+        self.assertEqual(cm.shape, (3, 3))
+        expected_cm = np.array([[2, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=np.int64)
+        np.testing.assert_array_equal(cm, expected_cm)
 
         y_true_seg = torch.zeros((4, 16), dtype=torch.long)
         y_pred_seg = torch.zeros((4, 16, 3), dtype=torch.float32)
