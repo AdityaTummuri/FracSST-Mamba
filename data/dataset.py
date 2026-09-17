@@ -14,24 +14,21 @@ class RadarMambaDataset(Dataset):
     """PyTorch Dataset for FracSST-Mamba preprocessed radar spectrograms.
 
     Produces:
-        spectrogram: Tensor of shape (T, F) representing time frames and frequency bins.
-        label: Scalar Tensor with sequence-level class index (0: Walk, 1: Sit, 2: Fall).
+        spectrogram_sequence: Tensor of shape (n_frames, n_freq_bins) i.e. (T, F).
+        sequence_class_label: Scalar Tensor with sequence-level class index (0: Walk, 1: Sit, 2: Fall).
 
     Args:
         data_dir: Path to directory containing .pt preprocessed files.
         file_paths: Optional list of explicit file paths to load.
-        return_mask: If True, also returns temporal segmentation mask of shape (T,).
     """
 
     def __init__(
         self,
         data_dir: Union[str, Path] = "data/processed",
         file_paths: Optional[List[Union[str, Path]]] = None,
-        return_mask: bool = False,
     ):
         super().__init__()
         self.data_dir = Path(data_dir)
-        self.return_mask = return_mask
 
         if file_paths is not None:
             self.files = [Path(p) for p in file_paths]
@@ -54,37 +51,40 @@ class RadarMambaDataset(Dataset):
 
     def __getitem__(
         self, idx: int
-    ) -> Union[Tuple[torch.Tensor, torch.Tensor], Tuple[torch.Tensor, torch.Tensor, torch.Tensor]]:
-        """Fetch preprocessed radar sample.
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Fetch preprocessed radar sample formatted for Mamba sequence models.
 
         Args:
             idx: Sample index.
 
         Returns:
-            Tuple of:
-                - spectrogram: Tensor of shape (T, F).
-                - label: Scalar Tensor with class index.
-                - (optional) segmentation_mask: Tensor of shape (T,) if return_mask=True.
+            Tuple containing:
+                - spectrogram_sequence: Tensor of shape (n_frames, n_freq_bins) i.e. (T, F).
+                - sequence_class_label: Scalar Tensor with sequence-level class index.
         """
         file_path = self.files[idx]
         data = torch.load(file_path, weights_only=True)
 
-        spectrogram = data["spectrogram"]  # (F, T) or (1, F, T) or (T, F)
-        label = data["label"]  # scalar long
+        spectrogram = data["spectrogram"]
+        label = data["label"]
 
-        # Squeeze channel dimension if present: (1, F, T) -> (F, T)
-        if spectrogram.ndim == 3:
+        if not isinstance(spectrogram, torch.Tensor):
+            spectrogram = torch.tensor(spectrogram, dtype=torch.float32)
+        else:
+            spectrogram = spectrogram.to(dtype=torch.float32)
+
+        if not isinstance(label, torch.Tensor):
+            label = torch.tensor(label, dtype=torch.long)
+        else:
+            label = label.to(dtype=torch.long)
+
+        # Standardize to (T, F) temporal sequence format
+        if spectrogram.ndim == 3 and spectrogram.shape[0] == 1:
             spectrogram = spectrogram.squeeze(0)
 
-        # Transpose to (T, F) if input is (F, T) where F=256 and T != 256
-        if spectrogram.shape[0] == 256 and spectrogram.shape[1] != 256:
+        # If shape is (F, T) where frequency bins > time frames, transpose to (T, F)
+        if spectrogram.ndim == 2 and spectrogram.shape[0] > spectrogram.shape[1]:
             spectrogram = spectrogram.transpose(0, 1)
-
-        if self.return_mask:
-            seg_mask = data.get("segmentation_mask")
-            if seg_mask is None:
-                seg_mask = torch.full((spectrogram.shape[0],), label.item(), dtype=torch.long)
-            return spectrogram, label, seg_mask
 
         return spectrogram, label
 
@@ -95,22 +95,12 @@ def pad_collate_fn(batch):
     Ensures the DataLoader produces a uniform (B, max_T, F) tensor regardless of whether
     the batch contains 5s recordings (T=79), 10s recordings (T=157), or a mixture.
     """
-    has_mask = len(batch[0]) == 3
     max_t = max(item[0].shape[0] for item in batch)
     f_dim = batch[0][0].shape[1]
     batch_size = len(batch)
 
     padded_specs = torch.zeros((batch_size, max_t, f_dim), dtype=torch.float32)
     labels = torch.empty((batch_size,), dtype=torch.long)
-
-    if has_mask:
-        padded_masks = torch.zeros((batch_size, max_t), dtype=torch.long)
-        for i, (spec, label, mask) in enumerate(batch):
-            t_len = spec.shape[0]
-            padded_specs[i, :t_len, :] = spec
-            labels[i] = label
-            padded_masks[i, :t_len] = mask
-        return padded_specs, labels, padded_masks
 
     for i, (spec, label) in enumerate(batch):
         t_len = spec.shape[0]
@@ -127,7 +117,6 @@ def create_dataloaders(
     num_workers: int = 0,
     seed: int = 42,
     file_paths: Optional[List[Union[str, Path]]] = None,
-    return_mask: bool = False,
 ) -> Tuple[DataLoader, DataLoader]:
     """Construct Train and Validation PyTorch DataLoaders yielding (B, T, F) tensors.
 
@@ -138,13 +127,12 @@ def create_dataloaders(
         num_workers: DataLoader worker subprocesses count.
         seed: Random seed for dataset split.
         file_paths: Optional explicit list of .pt files.
-        return_mask: If True, DataLoader batches include temporal segmentation masks.
 
     Returns:
         Tuple containing (train_loader, val_loader).
     """
     dataset = RadarMambaDataset(
-        data_dir=data_dir, file_paths=file_paths, return_mask=return_mask
+        data_dir=data_dir, file_paths=file_paths
     )
     total_samples = len(dataset)
 
