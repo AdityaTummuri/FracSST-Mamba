@@ -5,18 +5,23 @@ runs training & validation loop, computes metrics, and saves model checkpoints.
 """
 
 import argparse
+import json
 from pathlib import Path
 import tempfile
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List, Optional, Any, Union
 import yaml
 import torch
 import torch.nn as nn
 from torch.optim import AdamW
 
-from data.dataset import create_dataloaders
+from data.dataset import create_dataloaders, create_test_dataloader
 from models.mamba_block import MambaClassifier
 from utils.checkpoint import save_checkpoint, load_checkpoint
-from utils.metrics import compute_classification_metrics, compute_confusion_matrix
+from utils.metrics import (
+    compute_classification_metrics,
+    compute_confusion_matrix,
+    compute_detailed_classification_metrics,
+)
 
 
 def load_config(config_path: str) -> dict:
@@ -154,6 +159,95 @@ def validate(
     return val_loss, cls_metrics
 
 
+def evaluate_test_set(
+    model: nn.Module,
+    test_loader: torch.utils.data.DataLoader,
+    criterion: nn.Module,
+    device: torch.device,
+    class_names: Optional[List[str]] = None,
+    save_dir: Optional[Union[str, Path]] = "results",
+) -> Dict[str, Any]:
+    """Execute complete evaluation over the untouched test partition.
+
+    Args:
+        model: MambaClassifier model instance.
+        test_loader: DataLoader yielding test batches.
+        criterion: CrossEntropyLoss criterion.
+        device: Target compute device.
+        class_names: Class labels (default: ['Walk', 'Sit', 'Fall']).
+        save_dir: Output directory to save evaluation metrics JSON and confusion matrix.
+
+    Returns:
+        Dictionary containing test loss, accuracy, macro metrics, per-class metrics, and confusion matrix.
+    """
+    model.eval()
+    if class_names is None:
+        class_names = ["Walk", "Sit", "Fall"]
+
+    running_loss = 0.0
+    total_batches = 0
+    in_features = getattr(model, "in_features", 256)
+
+    all_cls_true = []
+    all_cls_pred = []
+
+    with torch.no_grad():
+        for batch in test_loader:
+            specs, labels = batch[0], batch[1]
+            specs = _format_batch_inputs(specs, in_features).to(device)
+            labels = labels.to(device)
+
+            logits = model(specs)
+            loss = criterion(logits, labels)
+
+            running_loss += loss.item()
+            total_batches += 1
+
+            all_cls_true.append(labels.cpu())
+            all_cls_pred.append(logits.cpu())
+
+    test_loss = running_loss / max(1, total_batches)
+    y_true = torch.cat(all_cls_true, dim=0) if all_cls_true else torch.tensor([], dtype=torch.long)
+    y_pred = torch.cat(all_cls_pred, dim=0) if all_cls_pred else torch.tensor([], dtype=torch.float32)
+
+    detailed_metrics = compute_detailed_classification_metrics(y_true, y_pred, class_names=class_names)
+    detailed_metrics["loss"] = float(test_loss)
+    detailed_metrics["total_samples"] = int(len(y_true))
+
+    # Save results if directory specified
+    if save_dir:
+        save_path = Path(save_dir)
+        save_path.mkdir(parents=True, exist_ok=True)
+
+        results_json_path = save_path / "test_evaluation_results.json"
+        serializable_metrics = {
+            "loss": float(test_loss),
+            "total_samples": int(len(y_true)),
+            "accuracy": float(detailed_metrics["accuracy"]),
+            "precision_macro": float(detailed_metrics["precision_macro"]),
+            "recall_macro": float(detailed_metrics["recall_macro"]),
+            "f1_macro": float(detailed_metrics["f1_macro"]),
+            "per_class": detailed_metrics["per_class"],
+            "confusion_matrix": detailed_metrics["confusion_matrix"].tolist(),
+        }
+        with open(results_json_path, "w", encoding="utf-8") as f:
+            json.dump(serializable_metrics, f, indent=2)
+
+        try:
+            from utils.visualization import plot_confusion_matrix
+            cm_plot_path = str(save_path / "test_confusion_matrix.png")
+            plot_confusion_matrix(
+                cm=detailed_metrics["confusion_matrix"],
+                class_names=class_names,
+                title="FracSST-Mamba Test Set Confusion Matrix",
+                save_path=cm_plot_path,
+            )
+        except Exception as e:
+            print(f"[Warning] Could not plot confusion matrix: {e}")
+
+    return detailed_metrics
+
+
 def run_smoke_test(
     model: nn.Module,
     optimizer: torch.optim.Optimizer,
@@ -267,6 +361,23 @@ def main() -> None:
         default=None,
         help="Path to checkpoint file (.pth) to evaluate without training.",
     )
+    parser.add_argument(
+        "--split-manifest",
+        type=str,
+        default="data/metadata/train_val_test_split.json",
+        help="Path to subject-independent train/val/test split manifest JSON.",
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help="Evaluate model checkpoint on the untouched test partition.",
+    )
+    parser.add_argument(
+        "--checkpoint",
+        type=str,
+        default="weights/best_model.pth",
+        help="Path to model checkpoint (.pth) to load for evaluation (default: weights/best_model.pth).",
+    )
     args = parser.parse_args()
 
     config = load_config(args.config)
@@ -325,10 +436,15 @@ def main() -> None:
         return
 
     # DataLoaders
+    split_manifest_path = Path(args.split_manifest) if args.split_manifest else None
+    if split_manifest_path and split_manifest_path.exists():
+        print(f"[Train] Using subject-independent split from: {split_manifest_path}")
+
     train_loader, val_loader = create_dataloaders(
         data_dir=processed_dir,
         batch_size=batch_size,
         val_split=0.2,
+        split_manifest=split_manifest_path,
     )
     print(
         f"[Train] Loaded {len(train_loader.dataset)} training samples, "
@@ -354,6 +470,77 @@ def main() -> None:
         if args.resume and "epoch" in ckpt_data:
             start_epoch = ckpt_data["epoch"] + 1
             print(f"[Train] Resuming training from epoch {start_epoch}")
+
+    # Test Evaluation Execution Path (Untouched Test Partition)
+    if args.test:
+        test_ckpt = args.checkpoint or args.eval_only or "weights/best_model.pth"
+        print("==================================================")
+        print("  Evaluating FracSST-Mamba on Untouched Test Set  ")
+        print("==================================================")
+        ckpt_data = load_checkpoint(
+            checkpoint_path=test_ckpt,
+            model=model,
+            device=device,
+        )
+        print(f"[Test] Loaded checkpoint from: {test_ckpt}")
+        if "epoch" in ckpt_data:
+            print(f"[Test] Trained Epochs: {ckpt_data['epoch']}")
+        if "val_accuracy" in ckpt_data:
+            print(f"[Test] Restored Checkpoint Val Accuracy: {ckpt_data['val_accuracy'] * 100:.2f}%")
+
+        split_manifest_path = Path(args.split_manifest) if args.split_manifest else Path("data/metadata/train_val_test_split.json")
+        test_loader = create_test_dataloader(
+            data_dir=processed_dir,
+            split_manifest=split_manifest_path,
+            batch_size=batch_size,
+        )
+        print(f"[Test] Loaded {len(test_loader.dataset)} untouched test samples from {split_manifest_path}")
+
+        # Strict subject-independent leakage check
+        with open(split_manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        train_subs = set(manifest["summary"]["train"]["subjects"])
+        val_subs = set(manifest["summary"]["validation"]["subjects"])
+        test_subs = set(manifest["summary"]["test"]["subjects"])
+        assert train_subs.isdisjoint(test_subs), "Subject leakage detected between train and test sets!"
+        assert val_subs.isdisjoint(test_subs), "Subject leakage detected between validation and test sets!"
+        print(f"[Test] Leakage check passed: Zero subject overlap with Train ({len(train_subs)} subjects) or Val ({len(val_subs)} subjects).")
+        print(f"[Test] Test partition spans {len(test_subs)} unique subjects: {sorted(list(test_subs))}")
+
+        test_results = evaluate_test_set(
+            model=model,
+            test_loader=test_loader,
+            criterion=criterion_cls,
+            device=device,
+            class_names=["Walk", "Sit", "Fall"],
+            save_dir="results",
+        )
+
+        print("--------------------------------------------------")
+        print(f"Test Loss:             {test_results['loss']:.4f}")
+        print(f"Test Accuracy:         {test_results['accuracy'] * 100:.2f}%")
+        print(f"Test Macro F1:         {test_results['f1_macro']:.4f}")
+        print(f"Test Macro Precision:  {test_results['precision_macro']:.4f}")
+        print(f"Test Macro Recall:     {test_results['recall_macro']:.4f}")
+        print("--------------------------------------------------")
+        print("Per-Class Metrics:")
+        for c_name, c_metrics in test_results["per_class"].items():
+            print(
+                f"  {c_name:<6} | Prec: {c_metrics['precision'] * 100:.2f}% | "
+                f"Rec: {c_metrics['recall'] * 100:.2f}% | "
+                f"F1: {c_metrics['f1']:.4f} | Support: {c_metrics['support']}"
+            )
+        print("--------------------------------------------------")
+        print("Confusion Matrix (Rows: True, Cols: Predicted):")
+        cm = test_results["confusion_matrix"]
+        print(f"{'':>8} {'Walk':>8} {'Sit':>8} {'Fall':>8}")
+        for i, c_name in enumerate(["Walk", "Sit", "Fall"]):
+            row_str = " ".join(f"{cm[i, j]:>8d}" for j in range(3))
+            print(f"{c_name:>8} {row_str}")
+        print("==================================================")
+        print("Results saved to: results/test_evaluation_results.json and results/test_confusion_matrix.png")
+        print("==================================================")
+        return
 
     # Eval-Only Execution Path
     if args.eval_only:

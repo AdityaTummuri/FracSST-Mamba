@@ -9,7 +9,7 @@ __all__ = [
 
 # Lazily export PyTorch-dependent dataset loaders so non-torch DSP environments don't break
 try:
-    from .dataset import RadarMambaDataset, create_dataloaders
-    __all__ += ["RadarMambaDataset", "create_dataloaders"]
+    from .dataset import RadarMambaDataset, create_dataloaders, create_test_dataloader
+    __all__ += ["RadarMambaDataset", "create_dataloaders", "create_test_dataloader"]
 except ImportError:
     pass

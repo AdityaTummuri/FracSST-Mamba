@@ -18,7 +18,7 @@ import streamlit as st
 import torch
 import torch.nn.functional as F
 
-from models.da_seg import DASegModel
+from models.mamba_block import MambaClassifier
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -35,8 +35,8 @@ RAW_DIR = Path("data/raw")
 # Model Loading (cached so it only runs once)
 # ---------------------------------------------------------------------------
 @st.cache_resource
-def load_model() -> Tuple[DASegModel, dict]:
-    """Load the trained DASegModel from the best checkpoint.
+def load_model() -> Tuple[MambaClassifier, dict]:
+    """Load the trained MambaClassifier from the best checkpoint.
 
     Returns:
         Tuple of (model, config_dict).
@@ -53,14 +53,17 @@ def load_model() -> Tuple[DASegModel, dict]:
     config = checkpoint.get("config", {})
     model_cfg = config.get("model", {})
 
-    model = DASegModel(
-        in_channels=1,
+    model = MambaClassifier(
+        in_features=model_cfg.get("in_features", 256),
         d_model=model_cfg.get("d_model", 128),
         n_layers=model_cfg.get("n_layers", 4),
         num_classes=model_cfg.get("num_classes", 3),
         dropout=0.0,  # No dropout at inference
     )
-    model.load_state_dict(checkpoint["model_state_dict"])
+    if "model_state_dict" in checkpoint:
+        model.load_state_dict(checkpoint["model_state_dict"])
+    else:
+        model.load_state_dict(checkpoint)
     model.eval()
 
     return model, config
@@ -194,6 +197,52 @@ def create_segmentation_figure(
         fontsize=13, fontweight="bold", color="white",
     )
     ax.legend(loc="upper right", fontsize=9, facecolor="#1a1a2e", edgecolor="white", labelcolor="white")
+    ax.tick_params(colors="white")
+    ax.set_facecolor("#1a1a2e")
+    fig.patch.set_facecolor("#0e1117")
+    fig.tight_layout()
+
+    return fig
+
+
+def create_probability_figure(
+    cls_probs: np.ndarray,
+    true_label: int,
+    sample_name: str,
+) -> plt.Figure:
+    """Create a class prediction probability distribution bar chart.
+
+    Args:
+        cls_probs: Softmax probabilities (num_classes,).
+        true_label: Ground truth class index.
+        sample_name: Display name.
+
+    Returns:
+        Matplotlib Figure.
+    """
+    fig, ax = plt.subplots(figsize=(14, 2.8), facecolor="#0e1117")
+    colors = ["#2ecc71", "#3498db", "#e74c3c"]
+    y_pos = np.arange(len(CLASS_NAMES))
+
+    bars = ax.barh(y_pos, cls_probs * 100.0, height=0.55, color=[colors[i % len(colors)] for i in y_pos], alpha=0.9)
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(CLASS_NAMES, fontsize=11, color="white", fontweight="bold")
+    ax.set_xlim(0, 105)
+    ax.set_xlabel("Confidence (%)", fontsize=11, color="white")
+    ax.set_title(
+        f"MambaClassifier Prediction Distribution — Ground Truth: {CLASS_NAMES[true_label]}",
+        fontsize=13, fontweight="bold", color="white",
+    )
+
+    for bar, prob in zip(bars, cls_probs):
+        width = bar.get_width()
+        ax.text(
+            width + 1.5,
+            bar.get_y() + bar.get_height() / 2,
+            f"{prob * 100.0:.1f}%",
+            va="center", ha="left", color="white", fontweight="bold", fontsize=10,
+        )
+
     ax.tick_params(colors="white")
     ax.set_facecolor("#1a1a2e")
     fig.patch.set_facecolor("#0e1117")
@@ -342,8 +391,8 @@ def main() -> None:
         st.markdown(
             "1. **Stage 1 — DSP**: FracSST sharpens raw radar micro-Doppler spectrograms "
             "using Fractional Fourier Transform + Synchrosqueezing.\n"
-            "2. **Stage 2 — AI**: Mamba SSM classifies the activity "
-            "and segments temporal frames."
+            "2. **Stage 2 — AI**: Mamba Selective State-Space sequence classifier "
+            "identifies dynamic human activity signatures."
         )
 
         st.divider()
@@ -352,9 +401,10 @@ def main() -> None:
         model_cfg = config.get("model", {})
         total_params = sum(p.numel() for p in model.parameters())
         st.markdown(
-            f"- **Architecture**: DASegModel + MambaBlock\n"
+            f"- **Architecture**: MambaClassifier\n"
             f"- **Parameters**: {total_params:,}\n"
             f"- **Classes**: {', '.join(CLASS_NAMES)}\n"
+            f"- **in_features**: {model_cfg.get('in_features', 256)}\n"
             f"- **d_model**: {model_cfg.get('d_model', 128)}\n"
             f"- **Mamba Layers**: {model_cfg.get('n_layers', 4)}"
         )
@@ -419,12 +469,18 @@ def main() -> None:
         plt.close(spec_fig)
 
         # ---- Stage 2: Model Inference ----
-        input_tensor = spectrogram.unsqueeze(0).unsqueeze(0)  # (1, 1, 256, 16)
+        # Standardize spectrogram shape to (T, F) sequence format
+        spec_seq = spectrogram
+        if spec_seq.ndim == 3 and spec_seq.shape[0] == 1:
+            spec_seq = spec_seq.squeeze(0)
+        if spec_seq.ndim == 2 and spec_seq.shape[0] > spec_seq.shape[1]:
+            spec_seq = spec_seq.transpose(0, 1)
+
+        input_tensor = spec_seq.unsqueeze(0)  # (1, T, F)
         with torch.no_grad():
-            cls_logits, seg_logits = model(input_tensor, return_segmentation=True)
+            cls_logits = model(input_tensor)
 
         cls_probs = F.softmax(cls_logits, dim=-1).squeeze(0).numpy()
-        seg_probs = F.softmax(seg_logits, dim=-1).squeeze(0).numpy()  # (T, C)
         pred_class = int(np.argmax(cls_probs))
         confidence = float(cls_probs[pred_class]) * 100.0
         pred_name = CLASS_NAMES[pred_class] if pred_class < len(CLASS_NAMES) else f"Class {pred_class}"
@@ -464,15 +520,14 @@ def main() -> None:
             unsafe_allow_html=True,
         )
 
-        # ---- Update Segmentation Chart ----
-        seg_fig = create_segmentation_figure(
-            seg_probs=seg_probs,
-            pred_labels=np.argmax(seg_probs, axis=-1),
+        # ---- Update Prediction Distribution Chart ----
+        prob_fig = create_probability_figure(
+            cls_probs=cls_probs,
             true_label=true_label,
             sample_name=sample_name,
         )
-        seg_placeholder.pyplot(seg_fig, use_container_width=True)
-        plt.close(seg_fig)
+        seg_placeholder.pyplot(prob_fig, use_container_width=True)
+        plt.close(prob_fig)
 
         time.sleep(feed_speed)
 

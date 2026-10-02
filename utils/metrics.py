@@ -4,7 +4,7 @@ Computes accuracy, F1 score, precision, recall, confusion matrix, and temporal f
 segmentation metrics.
 """
 
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Any
 import numpy as np
 import torch
 
@@ -98,6 +98,70 @@ def compute_classification_metrics(
         "precision_macro": float(np.mean(precisions)) if precisions else 0.0,
         "recall_macro": float(np.mean(recalls)) if recalls else 0.0,
         "f1_macro": float(np.mean(f1s)) if f1s else 0.0,
+    }
+
+
+def compute_detailed_classification_metrics(
+    y_true: np.ndarray | torch.Tensor,
+    y_pred: np.ndarray | torch.Tensor,
+    class_names: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """Compute overall and per-class classification metrics.
+
+    Args:
+        y_true: Ground truth target labels of shape (N,).
+        y_pred: Predicted class label indices or logits of shape (N,) or (N, num_classes).
+        class_names: Optional list of class names (e.g. ['Walk', 'Sit', 'Fall']).
+
+    Returns:
+        Dictionary containing accuracy, macro metrics, per-class metrics, and confusion matrix.
+    """
+    y_true_np = _to_numpy(y_true).ravel()
+    y_pred_np = _to_numpy(y_pred)
+
+    if y_pred_np.ndim > 1:
+        y_pred_np = np.argmax(y_pred_np, axis=-1)
+    y_pred_np = y_pred_np.ravel()
+
+    accuracy = float(np.mean(y_true_np == y_pred_np)) if len(y_true_np) > 0 else 0.0
+
+    num_classes = len(class_names) if class_names else int(np.max(np.concatenate([y_true_np, y_pred_np]))) + 1
+    classes = list(range(num_classes))
+
+    precisions, recalls, f1s = [], [], []
+    per_class = {}
+
+    for c in classes:
+        c_name = class_names[c] if (class_names and c < len(class_names)) else f"Class_{c}"
+        tp = int(np.sum((y_true_np == c) & (y_pred_np == c)))
+        fp = int(np.sum((y_true_np != c) & (y_pred_np == c)))
+        fn = int(np.sum((y_true_np == c) & (y_pred_np != c)))
+        support = int(np.sum(y_true_np == c))
+
+        p = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        r = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * p * r / (p + r) if (p + r) > 0 else 0.0
+
+        precisions.append(p)
+        recalls.append(r)
+        f1s.append(f1)
+
+        per_class[c_name] = {
+            "precision": float(p),
+            "recall": float(r),
+            "f1": float(f1),
+            "support": support,
+        }
+
+    cm = compute_confusion_matrix(y_true_np, y_pred_np, num_classes=num_classes)
+
+    return {
+        "accuracy": accuracy,
+        "precision_macro": float(np.mean(precisions)) if precisions else 0.0,
+        "recall_macro": float(np.mean(recalls)) if recalls else 0.0,
+        "f1_macro": float(np.mean(f1s)) if f1s else 0.0,
+        "per_class": per_class,
+        "confusion_matrix": cm,
     }
 
 

@@ -35,6 +35,8 @@ datasets/*
 !datasets/.gitkeep
 
 # Model checkpoints and weights
+weights/*
+!weights/.gitkeep
 *.pt
 *.pth
 *.ckpt

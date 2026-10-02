@@ -7,7 +7,11 @@ and training history curves.
 from typing import Optional, List
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
+try:
+    import seaborn as sns
+    HAS_SEABORN = True
+except ImportError:
+    HAS_SEABORN = False
 
 
 def plot_spectrogram(
@@ -65,15 +69,34 @@ def plot_confusion_matrix(
         save_path: Optional output image file path.
     """
     plt.figure(figsize=(7, 6))
-    sns.heatmap(
-        cm,
-        annot=True,
-        fmt="d" if np.issubdtype(cm.dtype, np.integer) else ".2f",
-        cmap=cmap,
-        xticklabels=class_names,
-        yticklabels=class_names,
-        cbar=True,
-    )
+    if HAS_SEABORN:
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt="d" if np.issubdtype(cm.dtype, np.integer) else ".2f",
+            cmap=cmap,
+            xticklabels=class_names,
+            yticklabels=class_names,
+            cbar=True,
+        )
+    else:
+        im = plt.imshow(cm, interpolation="nearest", cmap=cmap)
+        plt.colorbar(im)
+        tick_marks = np.arange(len(class_names))
+        plt.xticks(tick_marks, class_names, fontsize=11)
+        plt.yticks(tick_marks, class_names, fontsize=11)
+
+        fmt = "d" if np.issubdtype(cm.dtype, np.integer) else ".2f"
+        thresh = cm.max() / 2.0 if cm.max() > 0 else 1.0
+        for i in range(cm.shape[0]):
+            for j in range(cm.shape[1]):
+                val_str = f"{cm[i, j]:{fmt}}"
+                plt.text(
+                    j, i, val_str,
+                    ha="center", va="center",
+                    color="white" if cm[i, j] > thresh else "black",
+                    fontsize=12, fontweight="bold",
+                )
     plt.title(title, fontsize=14, fontweight="bold")
     plt.xlabel("Predicted Label", fontsize=12)
     plt.ylabel("True Label", fontsize=12)
