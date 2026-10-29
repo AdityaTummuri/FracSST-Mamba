@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg)](https://pytorch.org/)
 [![DSP: Pure NumPy/SciPy](https://img.shields.io/badge/DSP-NumPy%20%7C%20SciPy-013243.svg)](dsp/)
+[![MATLAB: R2020a+](https://img.shields.io/badge/MATLAB-R2020a%2B-e05d44.svg)](matlab/)
 
 ---
 
@@ -242,6 +243,16 @@ Launch the Streamlit visualization interface:
 ```bash
 streamlit run app.py
 ```
+
+### MATLAB DSP Demonstration & Testing Suite
+Run the standalone, pure MATLAB implementation of the FracSST DSP front-end:
+```matlab
+cd matlab
+test_dsp              % Run automated unit tests verifying mathematical invariance
+demo_dsp_visualizer   % Launch interactive 6-panel comparative diagnostic dashboard
+test_custom_data      % Quick template to test custom radar arrays or .mat/.dat files
+```
+*See [`matlab/README.md`](matlab/README.md) for full derivations, parameter explanations, and presentation talking points.*
 
 ---
 
