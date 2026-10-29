@@ -39,7 +39,7 @@ fprintf('====================================================================\n\
 %   'synthetic_sit'  - Synthetic sit down (deceleration)
 %   'real_uog'       - Real 5.8 GHz UoG FMCW radar .dat file
 
-data_mode = 'synthetic_walk';  % Change to 'synthetic_fall', 'synthetic_sit', or 'real_uog'
+data_mode = 'synthetic_fall';  % Options: 'synthetic_fall', 'synthetic_walk', 'synthetic_sit', or 'real_uog'
 
 % DSP Hyperparameters (matching the deep learning model specifications)
 n_fft = 256;          % Frequency bins resolution
@@ -308,10 +308,16 @@ title({sprintf('PROPOSED FracSST SPECTROGRAM (\\alpha^* = %.3f)', optimal_alpha)
     'Color', [0.2 1.0 0.5], 'FontSize', 13, 'FontWeight', 'bold');
 ylim([-fs/4, fs/4]);
 
-sgtitle(sprintf('Direct Visual Comparison: %s', activity_label), ...
-    'Color', 'w', 'FontSize', 15, 'FontWeight', 'bold');
+% Save figures automatically to assets directory
+assets_out = fullfile('..', 'assets');
+if ~exist(assets_out, 'dir')
+    mkdir(assets_out);
+end
+saveas(fig1, fullfile(assets_out, 'dsp_comparison_dashboard.png'));
+saveas(fig2, fullfile(assets_out, 'stft_vs_fracsst_comparison.png'));
+fprintf('>> Exported publication figures to ../assets/dsp_comparison_dashboard.png and ../assets/stft_vs_fracsst_comparison.png\n');
 
-fprintf('\n>> Visualization Complete! Figures 1 and 2 are displayed.\n');
+fprintf('\n>> Visualization Complete! Figures 1 and 2 are displayed and saved.\n');
 fprintf('====================================================================\n');
 fprintf('  How to explain this in your presentation/demonstration:\n');
 fprintf('  1. In Figure 1(D), show how the standard STFT suffers from wide,\n');
